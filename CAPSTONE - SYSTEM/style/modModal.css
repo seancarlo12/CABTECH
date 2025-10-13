@@ -1,0 +1,68 @@
+
+/* MODAL STYLE */
+.modal-content{
+    border-radius: 2px !important;
+    width: fit-content;
+    padding: 0 20px 90px 20px;
+}
+#editServicesModal .modal-content{
+    padding: 0 20px 20px 20px;
+}
+.modal-content label:not(:first-of-type){
+    margin-top: 20px;
+}
+.modal-footer button{
+    display: flex;
+}
+.modal-footer button i{
+    font-size: 22px ;
+    margin-right: 5px;
+}
+*{
+    /* outline: red 1px solid; */
+}
+.modal-header {
+    border-bottom: none !important;
+}
+
+.modal-title {
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: -.5px;
+}
+
+.modal-footer {
+    border-top: none !important;
+    position: absolute !important;
+    bottom: -90px !important;
+    right: 0px;
+}
+
+
+.btn-primary {
+    background-color: #11101d !important;
+    border: 2px solid #11101d !important;
+
+}
+
+.btn:focus {
+
+    box-shadow: 0 0 0 3px #cacaca !important;
+}
+
+.modal .btn {
+    border-radius: 2px !important;
+
+}
+
+.btn-secondary {
+    background: none !important;
+    color: black !important;
+    border: 2px solid !important;
+
+}
+
+/* Make Swal loading spinner black */
+.swal2-loader {
+    border-color: black transparent black transparent !important;
+}

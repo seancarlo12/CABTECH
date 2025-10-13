@@ -1,0 +1,134 @@
+.service-name {
+    font-size: 25px !important;
+    text-transform: uppercase;
+    text-align: right;
+    white-space: pre-line;
+    /* preserve line breaks if present */
+    word-break: break-word;
+    box-shadow: none !important;
+    /* wrap words that are too long */
+}
+
+/* Optional: force each word to a new line using ::after hack */
+.service-name::after {
+    content: '';
+    display: block;
+}
+
+/* Card container needs relative positioning so we can absolutely position the title */
+.service-card {
+    position: relative;
+    min-height: 180px;
+    padding-top: 2.2rem;
+    /* room for the name at the top-right */
+    border-radius: .6rem;
+    background: #fff;
+    /* or whatever card bg you use */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border-bottom: var(--bs-primary-color) 2px solid;
+}
+
+/* Top-right name badge */
+.service-name {
+    position: absolute;
+    top: .5rem;
+    right: .75rem;
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.90);
+    padding: .18rem .5rem;
+    border-radius: .35rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/* Footer area at bottom: left = short description, right = Learn More button */
+.service-footer {
+    margin-top: 1rem;
+    padding-top: .5rem;
+    /* border-top: 1px solid var(--bs-primary-color); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+/* Make the footer description flexible and clamp to two lines on larger screens */
+.footer-desc {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: .85rem;
+    color: #6b7280;
+    /* muted color */
+    line-height: 1.2;
+    /* two-line clamp (works in modern browsers) */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/* Ensure button doesn't shrink and sits to the right */
+.service-footer .btn {
+    flex: 0 0 auto;
+    padding: .35rem .6rem;
+    font-size: .85rem;
+}
+
+.learnmorebtn {
+    border: 1px solid var(--bs-primary-color) !important;
+    background: none !important;
+    border-radius: 3px;
+    transition: 100ms;
+    padding: 0 5px;
+    color: black;
+    text-decoration: none;
+
+
+}
+
+.learnmorebtn:hover {
+    background-color: var(--bs-primary-color) !important;
+    color: white;
+    font-weight: bold;
+}
+
+/* Small responsive tweak: on very small screens allow footer to stack */
+@media (max-width: 420px) {
+    .service-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: .5rem;
+    }
+
+    .service-name {
+        top: .4rem;
+        right: .5rem;
+        font-size: .9rem;
+    }
+}
+
+
+/* container for the scattered icons */
+.scattered-icons {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 140px;   /* area where icons will appear */
+    height: 110px;
+    pointer-events: none;
+    z-index: 0;     /* sits behind name/button, above card bg */
+    overflow: visible;
+    opacity: 5%;
+  }
+
+
+  .pagination{
+    --bs-pagination-color: black !important;
+    --bs-pagination-active-bg: var(--bs-primary-color) !important;
+    
+    --bs-pagination-active-border-color: none;
+  }

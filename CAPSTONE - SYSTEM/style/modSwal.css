@@ -1,0 +1,103 @@
+
+/* SWAL STYLE */
+
+.swal2-container {
+    --swal2-border-radius: 2px;
+}
+
+.swal2-title {
+    font-size: 20px !important;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    /* letter-spacing: -.5px; */
+    position: absolute;
+    top: 16px;
+    left: 65px;
+    padding: 0;
+    margin: 0;
+}
+
+.swal2-icon {
+    color: black;
+    height: 20px;
+    width: 20px;
+    border: none;
+    position: absolute;
+    top: -22px;
+    left: 30px;
+}
+
+.bx-x-circle, .swal2-container .bx-trash {
+    color: #D73444;
+}
+.bx-check-circle {
+    color: #188552;
+}
+
+.bx-info-circle {
+    color: #dbce1a;
+}
+
+.bx-error-circle {
+    color: #F8BC09;
+}
+
+.bx-help-circle {
+    color: #1d3f97;
+}
+
+.swal2-icon content {
+    height: fit-content;
+}
+
+.swal2-icon-content i {
+    font-size: 30px;
+}
+
+.swal2-html-container {
+    text-align: left;
+    margin-top: 80px;
+    /* padding: 0 65px; */
+    /* border: 1px solid red ; */
+}
+
+.swal2-actions {
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-size: 16px;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+.swal2-actions button {
+    border-radius: 2px;
+    padding: 7px 10px;
+    font-weight: 400;
+}
+
+.swal2-confirm:focus,
+.swal2-cancel:focus {
+    box-shadow: 0 0 0 2px #cacaca;
+}
+
+.swal2-confirm {
+    background-color: #11101d;
+    border: 2px solid #11101d;
+    order: 2 !important;
+}
+
+.swal2-cancel {
+    background: none !important;
+    color: black;
+    border: 2px solid black;
+}
+
+.swal2-footer {
+    background-color: white;
+    margin-top: 10px;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+}

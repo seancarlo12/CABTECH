@@ -1,0 +1,536 @@
+#services-box {
+    /* outline: red 1px solid; */
+    height: 80px;
+    max-height: 80px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow buttons to wrap to next line */
+    gap: 5px;
+    align-items: flex-start;
+    /* Keep buttons their natural height */
+}
+
+#services-box button {
+    border: 2px solid #cacaca;
+    background-color: transparent !important;
+    padding: 4px 10px;
+    height: auto;
+    /* Let buttons have natural height */
+    white-space: nowrap;
+    /* Prevent button text wrapping */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.service-btn.active {
+    border-bottom: 2px solid #11101d !important;
+    font-weight: bolder;
+}
+
+#details-row .column {
+    max-height: 500px;
+    min-width: 300px;
+    margin: 10px;
+}
+
+#details-row .column b {
+    text-transform: uppercase !important;
+    display: inline-block;
+    /* or block */
+    margin-bottom: 10px;
+}
+
+#details-row .second-col,
+#details-row .third-col {
+    display: flex;
+    flex-direction: column;
+}
+
+#req-date,
+#est-duration,
+#chosen-services {
+    height: 140px;
+    max-height: 200px;
+}
+
+#est-duration p {
+    background-color: #dedede;
+    border: #cacaca 2px solid;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 2px;
+
+}
+
+#sched-date button {
+    margin-top: 10px;
+}
+
+.note-text {
+    /* font-weight: bolder; */
+    font-style: italic;
+}
+
+#details-row .first-col,
+#details-row .second-col,
+#details-row .third-col {
+    width: 350px;
+    /* outline:red 1px solid; */
+    max-width: 300px;
+}
+
+#details-row .column button:not(.choices) {
+    background-color: #11101d;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 4px 10px 0px 8px;
+    border: none;
+    border-radius: 1px;
+}
+
+#details-row .column button i {
+    margin-right: 5px;
+}
+
+#details-row .column button p {
+    display: inline;
+    position: relative;
+    bottom: 1px;
+}
+
+
+#details-row {
+    /* flex-wrap: wrap;
+    gap: 20px; */
+    justify-content: center;
+}
+
+#details-row .fourth-col {
+    flex: 1;
+    max-width: 500px;
+}
+
+#wraptext {
+    padding: 10px;
+    border: 2px solid #cacaca;
+    border-radius: 5px;
+    height: 250px;
+}
+
+#comment-text {
+    padding-right: 20px;
+    max-height: 225px;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+
+
+
+
+
+
+#manageServicesModal .modal-dialog {
+    max-width: fit-content;
+}
+
+#add-another-service {
+    display: flex;
+    align-items: center;
+    background-color: #11101d;
+    color: white;
+    margin-bottom: 5px;
+    border-radius: 1px;
+    padding: 5px 10px 5px 5px;
+    border: none;
+
+}
+
+#add-another-service i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#add-another-service:focus {
+    box-shadow: 0 0 0 2px #cacaca;
+}
+
+#editServicesTable {
+    width: 600px;
+}
+
+.table-container {
+    max-height: 275px;
+    min-height: 275px;
+    border-bottom: 2px solid #cacaca;
+    overflow-y: auto;
+    display: block;
+}
+
+
+
+#editServicesTable thead {
+    background: #cacaca;
+    border: none !important;
+    position: sticky;
+    top: 0;
+}
+
+#editServicesTable thead th {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+
+
+
+#editServicesTable tr {
+    border-bottom: 2px solid #cacaca;
+    /* padding: 10px !important; */
+}
+
+#editServicesTable td {
+    padding: 10px;
+}
+
+#editServicesTable button {
+    background-color: transparent;
+    border: 2px solid #cacaca !important;
+    font-size: 25px;
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.edit-service:hover {
+    background-color: rgba(220, 220, 27, .3) !important;
+}
+
+.delete-service:hover {
+    background-color: rgba(214, 0, 0, .3) !important;
+}
+
+#editServicesTable thead {
+    border-top: 2px solid #cacaca;
+}
+
+#editServicesTable tr:hover:not(thead tr) {
+    background-color: #e9e9e9;
+}
+
+#editServicesTable button i {
+    display: flex;
+}
+
+
+#og-sched,
+#new-sched-date {
+    margin-bottom: 10px;
+}
+
+#resched-reason {
+    border: 1px solid #cacaca !important;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    outline: none;
+}
+
+
+
+.form-check-label strong {
+    text-transform: uppercase;
+}
+
+#serviceList {
+    max-height: 400px;
+    min-height: 400px;
+    border-radius: 3px !important;
+}
+
+#service-list {
+    border-bottom: 1px solid #cacaca;
+    margin-bottom: 5px;
+    /* padding-right: 10px; */
+}
+
+.form-check:hover input:not(:disabled)+label strong {
+    text-decoration: underline;
+    font-size: 16.5px;
+}
+
+#inactive-text {
+    color: red;
+}
+
+#noServ {
+    font-weight: bold;
+    /* color: red; */
+    text-align: center;
+    display: block;
+    margin: 25% auto !important;
+    text-transform: uppercase;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+#service-comments-container {
+    padding: 0 10px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+#service-comments-container label strong {
+    text-transform: uppercase;
+}
+
+#service-comments-container label {
+    border: 0 !important;
+}
+
+#service-comments-container textarea {
+    max-height: 150px;
+    min-height: 50px;
+    outline: none;
+}
+
+#clientFormModal label:not(:first-of-type) {
+    margin-top: 20px;
+}
+
+#clientFormModal .select2-container--default .select2-selection--single,
+#addServiceModal .select2-container--default .select2-selection--single {
+    padding: 4px 5px;
+    height: auto;
+    min-height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+.vehicle-card {
+    border: 2px solid transparent;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    border: 1px solid #cacaca;
+}
+
+.vehicle-card:hover:not(.selected-vehicle) {
+    border-color: #ccc !important;
+    background-color: #dedede;
+}
+
+.vehicle-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicle-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 4px !important;
+}
+
+.vehicle-card-text {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+
+.selected-vehicle {
+    border-color: #11101d;
+    background-color: #cacaca;
+}
+
+#requestSched {
+    margin-bottom: 10px;
+}
+
+
+
+/* SUMMARY MODAL */
+
+#addServiceRequest-6 .modal-dialog {
+    max-width: 650px;
+}
+
+#summary-details * {
+
+    /* outline: red 1px solid; */
+}
+
+#summary-details {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#summary-details div {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 270px;
+    max-width: 270px;
+    height: 175px;
+}
+
+#summary-details div b {
+    display: inline-block;
+    /* or block */
+    margin-bottom: 10px;
+}
+
+#sum-service button {
+    margin: 0 5px 5px 0;
+}
+
+#sum-service button {
+    border: 2px solid #dedede;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+#sum-service button:hover {
+    background-color: #e9e9e9;
+}
+
+#sum-service button.active {
+    background-color: #dedede;
+}
+
+#sum-comment,
+#sum-service {
+
+    height: 175px;
+    overflow-y: auto;
+}
+
+
+
+
+
+
+
+#startServiceModal .modal-dialog {
+    /* max-width: 60%; */
+}
+
+.card-header input[type="checkbox"] {
+    display: none;
+}
+
+#request-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    max-height: 180px;
+    border-left: 4px solid #11101d;
+}
+
+#request-details p b {
+    text-transform: uppercase;
+}
+
+#request-details p {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#req-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#span-vehicles {
+    display: flex;
+    gap: 5px;
+}
+
+/* Mechanic cards container: horizontal scroll */
+#assign-mechanics-list {
+    display: flex;
+    flex-wrap: nowrap;
+    /* No wrapping = horizontal scroll */
+    gap: 1rem;
+    padding: 5px;
+    overflow-x: auto;
+    /* Enable horizontal scroll */
+    overflow-y: hidden;
+    /* Hide vertical overflow */
+}
+
+/* Modal title spacing */
+#assign-modal h2 {
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+/* Card dimensions for horizontal layout */
+#assign-mechanics-list .card {
+    width: 400px;
+    flex-shrink: 0;
+    /* Prevent shrinking so cards stay fixed width */
+    min-height: 200px;
+}
+
+/* Scrollable specialties inside the card */
+#specialties-box {
+    height: 200px;
+    overflow-y: auto;
+}
+
+#mechanicSearch {
+    border: #ababab 2px solid;
+}
+
+#bor-r {
+    border-right: 1px solid #11101d;
+}
+
+#resched-btn,
+#editServicesbtn {
+    text-transform: uppercase;
+}
+
+.past-due {
+    border-right: 5px solid #D42A2A !important;
+}
+
+.near-due {
+    border-right: 5px solid #ffcf3e !important;
+}
+
+.def-due {
+    border-right: 5px solid lightgray !important;
+}
+
+
+#addServiceModal #add-comment{
+    max-height: 200px;
+}

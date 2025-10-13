@@ -1,0 +1,618 @@
+#services-box {
+    /* outline: red 1px solid; */
+    max-width: 300px;
+    height: 80px;
+    max-height: 80px;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow buttons to wrap to next line */
+    gap: 5px;
+    align-items: flex-start;
+    /* Keep buttons their natural height */
+}
+
+#services-box button {
+    border: 2px solid #cacaca;
+    background-color: transparent !important;
+    padding: 4px 10px;
+    height: auto;
+    /* Let buttons have natural height */
+    white-space: nowrap;
+    /* Prevent button text wrapping */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.service-btn.active {
+    border-bottom: 2px solid #11101d !important;
+    font-weight: bolder;
+}
+
+#details-row .column {
+    max-height: 500px;
+    min-width: 300px;
+    margin: 10px;
+}
+
+#details-row .column b {
+    text-transform: uppercase !important;
+    display: inline-block;
+    /* or block */
+    margin-bottom: 10px;
+}
+
+#details-row .second-col,
+#details-row .third-col {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#timeline-block,
+#assigned-mechanics,
+#chosen-services {
+    height: 140px;
+    max-height: 200px;
+}
+
+.note-text {
+    /* font-weight: bolder; */
+    font-style: italic;
+}
+
+#details-row .second-col,
+#details-row .third-col {
+    width: 350px;
+    /* outline:red 1px solid; */
+    max-width: 300px;
+}
+
+#details-row .column button:not(.choices, .btn-sm) {
+    background-color: #11101d;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 4px 10px 0px 8px;
+    border: none;
+    border-radius: 1px;
+}
+
+#details-row .column button i {
+    margin-right: 5px;
+}
+
+#details-row .column button p {
+    display: inline;
+    position: relative;
+    bottom: 1px;
+}
+
+#details-row {
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#details-row .fifth-col {
+    flex: 1 1 200px;   /* grow, shrink, min-basis */
+    min-width: 200px; /* don’t shrink below this */
+    max-width: 500px; /* cap width */
+}
+
+#wraptext {
+    padding: 10px;
+    border: 2px solid #cacaca;
+    border-radius: 5px;
+    height: 250px;
+}
+
+#comment-text {
+    padding-right: 20px;
+    max-height: 225px;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+
+
+#timeline-block span {
+    position: relative;
+    bottom: 5px;
+    left: 18px;
+}
+
+
+.timeline-dots {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    position: relative;
+}
+
+.dot-btn {
+    width: 31px;
+    height: 31px;
+    outline: 1px solid lightgray;
+    cursor: pointer;
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.dot-btn i {
+    font-size: 20px;
+    position: relative;
+    right: 3px;
+    bottom: 3px;
+}
+
+#timeline-time {
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.dot-btn:hover {
+    outline: 1px solid gray !important;
+}
+
+.dot-btn.active {
+    background-color: #11101d !important;
+    color: white !important;
+}
+
+
+#selectItems,
+#searchItem {
+    width: 50% !important;
+}
+
+
+#mech-box button {
+    padding: 3px 5px;
+    border-radius: 3px;
+    border-width: 1px !important;
+}
+
+#mech-box {
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+/* #details-row .fifth-col {
+    width: 370px;
+    max-width: 370px;
+} */
+
+#offCanvasManageItems {
+    width: 550px !important;
+    /* set your desired width */
+    /* z-index: 1040 !important; */
+}
+
+
+#offCanvasManageItemsLabel {
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.offcanvas-body .card-header {
+    background-color: #f5f5f5 !important;
+}
+
+.offcanvas-body .card-header #neededheader {
+    text-transform: uppercase !important;
+    font-weight: bolder !important;
+}
+
+.offcanvas-body .card-header div {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+#itemsSum {
+    border: none;
+}
+
+.headerData {
+    font-weight: bolder;
+}
+
+#offCanvasManageItems table .qty {
+    padding-left: 0 !important;
+}
+
+#offCanvasManageItems table {
+    width: 100%;
+    table-layout: fixed;
+    position: relative;
+    /* keeps columns aligned */
+}
+
+#offCanvasManageItems table tbody {
+    display: block;
+    max-height: 220px;
+    min-height: 220px;
+    /* ~4 rows visible */
+    overflow-y: auto;
+    ;
+}
+#offCanvasManageItems table tbody,
+#offCanvasManageItems table tfoot{
+    width: 480px ;
+}
+#offCanvasManageItems table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#offCanvasManageItems table tbody tr:hover td{
+    background: #f5f5f5;
+}
+#offCanvasManageItems table th:first-child,
+#offCanvasManageItems table td:first-child{
+    width: 180px;
+}
+
+/* Align last column to the right */
+#offCanvasManageItems table td:last-child,
+#offCanvasManageItems table th:last-child {
+    text-align: right;
+}
+
+/* Hover effect for table rows */
+#offCanvasManageItems table tbody tr:hover {
+    background: #f5f5f5;
+}
+
+/* Quantity input styling */
+#offCanvasManageItems .qty-input {
+    max-width: 75px; /* control width */
+}
+
+
+.item-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.item-container:hover{
+    background-color: #f5f5f5;
+    outline: 1px solid black;
+}
+.item-container .avail{
+    color: green;
+}
+.item-container .unavail{
+    color: red;
+}
+.unavailItem{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+.item-container b {
+    flex: 2; /* wider for name */
+    padding-right: 50px;
+}
+
+.status-stock {
+    flex: 2;
+    text-align: center;
+}
+
+.item-price { /* price */
+    flex: 1.5;
+    text-align: left;
+}
+
+.item-container button {
+    flex: 0 0 20px;
+    text-align: center;
+    font-size: 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #11011d;
+    padding: 5px;
+    color: white;
+    border-radius: 2px;
+}
+.remove-btn{
+    text-align: center;
+    border: none;
+    background-color: #D42A2A;
+    padding: 2px;
+    color: white;
+    border-radius: 2px;
+}
+.item-container button:active, .remove-btn:active{
+    transform: scale(0.9);
+}
+
+#itemsList {
+    max-height: 29vh;  /* 40% of viewport height */
+    min-height: 20vh;  /* ensures it doesn’t shrink too small */
+    overflow-y: auto;  /* auto instead of scroll, hides scrollbar if not needed */
+    border-bottom: 1px solid black;
+}
+
+#itemslistBox{
+    padding: 5px 20px;
+}
+.status-stock {
+    flex: 2;
+    display: flex;
+    flex-direction: column; /* stack status + stock */
+    align-items: start;    /* center both */
+    /* padding-left: 10px; */
+}
+
+.status-stock .stock {
+    color: #666; /* lighter color for stock */
+    font-size: 0.85em;
+}
+
+#itemslistBox h5{
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+#itemsList .no-results {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding-top: 60px;
+}
+
+
+
+
+
+
+
+
+#manageServicesModal .modal-dialog {
+    max-width: fit-content;
+}
+
+#add-another-service, #misc-btn {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    margin-bottom: 5px;
+    border-radius: 1px;
+    padding: 5px 10px 5px 5px;
+    border: none;
+
+}
+
+#add-another-service i, #misc-btn i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#add-another-service:focus, #misc-btn:focus  {
+    box-shadow: 0 0 0 2px #cacaca;
+}
+#add-another-service:hover, #misc-btn:hover  {
+    opacity: 80%;
+}
+#items-used .table{
+    --bs-table-bg: transparent !important;
+}
+
+
+
+
+
+
+
+
+
+#editServicesTable {
+    width: 800px;
+}
+
+.table-container {
+    max-height: 275px;
+    min-height: 275px;
+    border-bottom: 2px solid #cacaca;
+    overflow-y: auto;
+    display: block;
+}
+
+#editServicesTable th:last-child,
+#editServicesTable td:last-child {
+  border-left: 5px solid transparent; /* creates separation */
+  padding-left: 5px;                  /* keeps spacing consistent */
+  text-align: center;
+}
+
+#editServicesTable thead {
+    background: #cacaca;
+    border: none !important;
+    position: sticky;
+    top: 0;
+}
+
+#editServicesTable thead th {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+
+
+
+#editServicesTable tr {
+    border-bottom: 2px solid #cacaca;
+    /* padding: 10px !important; */
+}
+
+#editServicesTable td {
+    padding: 10px;
+}
+
+#editServicesTable button {
+    background-color: transparent;
+    border: 2px solid #cacaca !important;
+    font-size: 25px;
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.edit-service:hover {
+    background-color: rgba(220, 220, 27, .3) !important;
+}
+
+.delete-service:hover {
+    background-color: rgba(214, 0, 0, .3) !important;
+}
+.additem-service:hover {
+    background-color: rgba(0, 50, 214, 0.3) !important;
+}
+
+#editServicesTable thead {
+    border-top: 2px solid #cacaca;
+}
+
+#editServicesTable tr:hover:not(thead tr) {
+    background-color: #e9e9e9;
+}
+
+#editServicesTable button i {
+    display: flex;
+}
+
+#service-name-head{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#services-summary{
+    margin-bottom: -80px;
+}
+
+#action-col{
+    text-indent: 25px;
+}
+
+
+
+
+
+
+
+#invoiceTable {
+    width: 800px;
+}
+
+.table-container {
+    max-height: 275px;
+    min-height: 275px;
+    border-bottom: 2px solid #cacaca;
+    overflow-y: auto;
+    display: block;
+}
+
+#ServiceInvoiceModal .modal-body{
+    display: flex;
+}
+
+
+#left-details{
+    min-width: 280px;
+    max-width: 280px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(211, 211, 211, 0.3);
+    padding: 30px 20px;
+    gap: 40px;
+    margin-right: 10px;
+}
+#left-details div b.head-details{
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+#invoiceTable thead {
+    background: #cacaca;
+    border: none !important;
+    position: sticky;
+    top: 0;
+}
+
+#invoiceTable thead th {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+
+
+
+#invoiceTable tr {
+    border-bottom: 2px solid #cacaca;
+    /* padding: 10px !important; */
+}
+
+#invoiceTable td {
+    padding: 10px;
+}
+#invoiceTable tfoot tr {
+    position: sticky;
+    bottom: 0;
+    background: #fff;       /* match table bg */
+    z-index: 10;
+}
+
+
+#right-invoicebox {
+    height: 700px;
+    max-height: 700px;
+    overflow-y: auto;       /* vertical scroll if content exceeds */
+    overflow-x: hidden;
+    border: 1px solid #ddd; /* optional border */
+}
+
+.inv-marleft{
+    display: block;
+    margin-left: 30px;
+}
+
+.inv-subtotal{
+    text-align: right;
+    /* background-color: rgba(233, 233, 233, 0.8); */
+}
+
+.inv-service-head{
+    background-color: rgba(233, 233, 233, 0.8);
+}
+
+.inv-grand-txt{
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 20px;
+    background-color: rgba(17, 16, 29, 0.9);
+    color: white;
+}
+.inv-grand-val{
+    font-size: 20px;
+    background-color: rgba(17, 16, 29, 0.9);
+    color: white;
+}
+
+
+
+#manageMechAssignedModal .modal-dialog{
+    min-width: 800px !important;
+    max-width: 800px !important;
+}

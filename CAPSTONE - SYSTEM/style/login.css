@@ -1,0 +1,233 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+#ikons img{
+    /* width: 20px; */
+    position: absolute;
+    transition: 500ms;
+
+    user-select: none;
+    -webkit-user-drag: none;
+}#ikons img:hover{
+    transform: rotate(70deg);
+}
+#calendar{
+    width: 80px;
+    top: -20px;
+    left: -290px;
+
+    transform: rotate(-20deg);
+}
+#gear{
+    width: 50px;
+    left: -200px;
+    bottom: 150px;
+
+    transform: rotate(-20deg);
+}
+#wrench{
+    width: 60px;
+    right: -250px;
+    top: 100px;
+
+    transform: rotate(270deg);
+}
+#pin{
+    width: 70px;
+    right: -100px;
+    top: -20px;
+
+    transform: rotate(20deg);
+}
+#screws{
+    width: 40px;
+    right: -180px;
+    bottom: 140px;
+
+    transform: rotate(20deg);
+}
+
+#steering{
+    width: 100px;
+    left: -110px;
+    top: 90px;
+
+    transform: rotate(-20deg);
+}
+
+
+
+#nut{
+    width: 30px;
+    left: -110px;
+    top: -30px;
+
+    transform: rotate(-20deg);
+}
+#nut2{
+    width: 20px;
+    right: -100px;
+    top: 140px;
+
+    transform: rotate(-40deg);
+}#nut3{
+    width: 25px;
+    right: -80px;
+    top: 140px;
+
+    transform: rotate(-40deg);
+}#nut4{
+    width: 15px;
+    right: -90px;
+    top: 165px;
+
+    transform: rotate(-80deg);
+}
+#sparkle{
+    width: 40px;
+    left: -240px;
+    top: 140px;
+
+    transform: rotate(10deg);
+}
+#star{
+    width: 30px;
+    right: -200px;
+    top: 10px;
+
+    transform: rotate(-10deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f5f5 !important;
+
+    
+}
+
+.wrapper {
+    position: relative;
+    width: 550px;
+    background: transparent;
+    backdrop-filter: blur(6px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 5px;
+    border-top: #D42A2A 4px solid;
+    padding: 50px 60px;
+}
+
+.wrapper #welcome {
+    font-size: 36px;
+    text-align: center;
+}
+.wrapper #welcome span{
+    color: #D42A2A;
+    font-weight: bolder;
+}
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    font-size: 16px;
+    background: #cacaca;
+    padding: 20px 40px 20px 20px;
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    border-radius: 5px;
+}
+
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.wrapper .remember-forget {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: 20px 0 15px;
+}
+
+.remember-forget label input {  
+    margin-right: 10px;
+}
+
+.remember-forget a {
+    color: black;
+    text-decoration: none;
+}
+
+.remember-forget a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #333;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: 200ms;
+    background: #D42A2A;
+    color: white;
+}
+
+.wrapper .button:hover {
+    font-size: 17px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+/* 
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+} */
+

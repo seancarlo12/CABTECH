@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <style>
+        @import url('../style/systemFont.css');
+
+        * {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins';
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin: 40px 0 20px;
+        }
+
+        .lock {
+            border-radius: 5px;
+            width: 55px;
+            height: 45px;
+            background-color: #333;
+
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                border-left: 5px solid #333;
+                height: 20px;
+                width: 15px;
+                left: calc(50% - 12.5px);
+            }
+
+            &::before {
+                top: -30px;
+                border: 5px solid #333;
+                border-bottom-color: transparent;
+                border-radius: 15px 15px 0 0;
+                height: 30px;
+            }
+            
+        }
+
+        p{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        a{
+            background: transparent;
+            padding: 5px 20px;
+            width: 50%;
+            text-transform: uppercase;
+            font-weight: bolder;
+            border: 2px solid #11101d;
+            border-radius: 2px;
+            display: block;
+            margin: 0 auto;
+            transition: 200ms;
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }
+        a:hover{
+            background-color: #11101d;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lock"></div>
+    <div class="message">
+        <h1>Direct access to this page is not allowed.</h1>
+        <p>Please check with the site admin if you believe this is a mistake.</p>
+        <a  href="javascript:history.back()">Go Back</a>
+    </div>
+</body>
+
+</html>

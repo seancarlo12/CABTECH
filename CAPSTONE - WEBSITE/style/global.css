@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lunasima:wght@400;700&display=swap');
+
+:root {
+    --bs-primary-color: #e32929;
+    --bs-dark-color: #323232;
+    --bs-light-gray: #f8f9fa;
+    --bs-body-font: 'Outfit', sans-serif;
+    --bs-button-font: 'Lunasima', sans-serif;
+}
+
+/* Nav link active state */
+.navbar-nav .nav-link.active,
+.navbar-nav .dropdown-toggle.active {
+    color: var(--bs-primary-color) !important;
+    font-weight: bolder;
+}
+
+
+body {
+    font-family: var(--bs-body-font);
+}
+
+.step {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #6c757d;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  .step.active {
+    background: #dc3545;
+  }
+  .line {
+    flex: 1;
+    height: 2px;
+    background: #ccc;
+  }
+/* Header style */
+
+header {
+    z-index: 1030;
+}
+
+.text-primary {
+    color: var(--bs-primary-color) !important;
+}
+.schedulebtn{
+    background-color: var(--bs-primary-color);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    border: 0;
+    font-weight: bold;
+    transition: 100ms;
+}
+
+.schedulebtn:hover{
+    opacity: 80%;
+}
+.schedulebtn:active{
+    transform: scale(0.98);
+}
+/* Hero Section */
+.bg-hero-image {
+    background-image: url('../assets/img/bg.png');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .bg-hero-image {
+        /* minsan ayaw gumana amp, kahit wala mga nato*/
+        height: 60vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-hero-image {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 375px) {
+    .bg-hero-image {
+        height: 70vh;
+    }
+}
+
+
+/* Working Process */
+
+.containerHead{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    gap: 500px;
+}
+.working-process {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.working-process h6 {
+    color: var(--bs-primary-color) !important;
+    font-weight: 500;
+}
+
+.process-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: -30px;
+    position: relative;
+    z-index: 2;
+}
+
+.process-item {
+    text-align: center;
+    padding: 15px;
+
+}
+
+.process-icon {
+    color: var(--bs-primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+
+
+/* about us section */
+.about-image {
+    border-radius: 8px;
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+/* PMS service section */
+
+.pms-image img {
+    border: 3px solid #323232;
+}
+
+
+/* Services Section */
+.service-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 25px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    border-left: 5px solid var(--bs-primary-color);
+}
+
+.service-icon {
+    color: var(--bs-primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+
+/* footer section */
+/* look terrible on tablet mode  */
+.footer {
+    background-image: url('../assets/img/footerimg.jpg');
+    background-size: cover;
+    color: white;
+    padding: 50px 0 20px;
+}
+
+.footer a {
+    color: #adb5bd;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--bs-primary-color);
+    color: white;
+}
+
+.footer p,
+.footer li {
+    font-size: .8rem;
+}
+
+.box-shadow-div{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 5px;
+}
+section h6{
+    color: var(--bs-primary-color) !important;
+    font-weight: 500;
+
+}
+
+.button-format{
+    background-color: var(--bs-primary-color) !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.button-format:hover{
+    opacity: 80%;
+}
+.button-format:active{
+    transform: scale(0.98);
+}
+
+
+.step-content {
+    padding: 0 10%;
+    min-height: 600px;
+    max-height: 600px;
+}
+
+#progressSteps{
+    margin: 10px 10%;
+}
+
+.step span.text-top{
+    position: absolute;
+    color: black;
+    top: 2px;
+    font-size: 12px;
+}
+
+#servicesList{
+    max-height: 500px !important; 
+    overflow-y: auto !important;
+}
+
+.summary-section h6{
+    text-transform: uppercase;
+}
+
+.step.completed {
+    cursor: pointer;
+    background-color: #d4edda; /* greenish */
+}
+
+.servicesTable tbody tr{
+    height: 100px;
+}
+
+.service-comment{
+    height: 60px;
+}
+
+#profileDropdown{
+
+    outline: 1px solid black;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: 200ms;
+}
+
+header .open-signup{
+    border: 1px solid var(--bs-primary-color) !important;
+    border-radius: 10px;
+    padding: 8px 20px !important;
+}
+
+header .open-signup:hover{
+    background-color: var(--bs-primary-color) !important;
+    color:  white !important;
+}
+
+
+
+
+
+
+
+.request-table{
+    max-width: 800px;
+}
+
+#invoiceTable {
+    width: 800px;
+}
+
+#ServiceInvoiceModal .modal-body{
+    display: flex;
+}
+
+
+#left-details{
+    min-width: 280px;
+    max-width: 280px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(211, 211, 211, 0.3);
+    padding: 30px 20px;
+    gap: 40px;
+    margin-right: 10px;
+}
+
+#left-details p{
+    margin: 0 !important;
+}
+#left-details div b.head-details{
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+#invoiceTable thead {
+    background: #cacaca;
+    border: none !important;
+    position: sticky;
+    top: 0;
+}
+
+#invoiceTable thead th {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+
+
+
+#invoiceTable tr {
+    border-bottom: 2px solid #cacaca;
+    /* padding: 10px !important; */
+}
+
+#invoiceTable td {
+    padding: 10px;
+}
+#invoiceTable tfoot tr {
+    position: sticky;
+    bottom: 0;
+    background: #fff;       /* match table bg */
+    z-index: 10;
+}
+
+
+#right-invoicebox {
+    height: 700px;
+    max-height: 700px;
+    overflow-y: auto;       /* vertical scroll if content exceeds */
+    overflow-x: hidden;
+    border: 1px solid #ddd; /* optional border */
+}
+
+.inv-marleft{
+    display: block;
+    margin-left: 30px;
+}
+
+.inv-subtotal{
+    text-align: right;
+    /* background-color: rgba(233, 233, 233, 0.8); */
+}
+
+.inv-service-head{
+    background-color: rgba(233, 233, 233, 0.8);
+}
+
+.inv-grand-txt{
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 20px;
+    background-color: rgba(17, 16, 29, 0.9);
+    color: white;
+}
+.inv-grand-val{
+    font-size: 20px;
+    background-color: rgba(17, 16, 29, 0.9);
+    color: white;
+}
+
+
+#notif-list{
+    max-height: 600px !important;
+    overflow: auto;
+}
+.notif-message{
+
+    max-width: 500px !important;
+    min-width: 500px !important;
+    white-space: wrap;     /* ✅ preserves newlines */
+}

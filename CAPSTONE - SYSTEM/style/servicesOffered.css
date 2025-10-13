@@ -1,0 +1,31 @@
+#activatebtn i {
+    color: green;
+}
+#deacbtn i {
+    color: rgb(211, 0, 0) !important;
+}
+
+
+.description-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    max-width: 500px;
+}
+
+/* Expanded state */
+.description-text.expanded {
+    white-space: normal;
+    overflow: auto;
+    text-overflow: unset;
+    background-color: #f9f9f9;
+    padding: 4px;
+    border-radius: 4px;
+    max-height: 300px;
+}
+
+#description, #edit-description{
+    max-height: 300px;
+    min-height: 100px;
+}

@@ -1,0 +1,435 @@
+
+@import url('modSwal.css');
+@import url('modModal.css');
+@import url('bx-icon.css');
+@import url('select2.css');
+@import url('systemFont.css');
+
+/* MOD BS */
+.form-control:focus, .form-select:focus {
+    border-color: #0c0c0c !important;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(127, 127, 127, 0.25) !important;
+}
+.form-check-input:focus {
+    border-color: #0c0c0c !important;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(127, 127, 127, 0.25) !important;
+}
+.form-check-input{
+    border: 1px solid rgba(17, 16, 29, 0.3) !important;
+}
+
+.ellipsis-tooltip {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.address-only {
+    white-space: normal !important;        /* Override nowrap */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;                
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp: 2;
+}
+
+body {
+    background: #f5f5f5 !important;
+}
+
+#content-area {
+    /* outline: red 1px solid; */
+    min-height: 87vh;
+    padding-right: 0.8%;
+
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+
+#content .content-id {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 10px;
+    font-size: 15px;
+    /* font-weight: bolder; */
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+#content .content-id i {
+    font-size: 8px;
+}
+
+#content {
+    transition: 500ms;
+    margin-left: 95px;
+    /* outline: red 1px solid !important; */
+    padding: 10px 80px;
+    min-height: 90vh;
+}
+
+#content #helpicon {
+    float: right;
+    font-size: 25px;
+    padding: 5px;
+    color: #11101d;
+    border-radius: 20px;
+}
+
+#content #helpicon:hover {
+    transform: scale(1.1);
+}
+
+.sidebar.close~.home-section #content {
+    margin-left: 15px;
+}
+
+.nav-links span,
+.nav-links .sub-menu li {
+    cursor: pointer;
+}
+
+#nat {
+    cursor: context-menu;
+}
+
+
+
+
+
+
+
+
+#content #buttons {
+    z-index: 99;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #11101d;
+    padding: 10px 10px 20px 10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    border-top: 2px solid #cacaca;
+    border-right: 2px solid #cacaca;
+    border-left: 2px solid #cacaca;
+    display: flex;
+    gap: 5px;
+    margin-bottom: -2px;
+}
+
+#content #buttons button i {
+    /* background-color: red; */
+    min-width: 20px;
+    min-height: 15px;
+    padding-left: 10px;
+}
+
+#content #buttons button span {
+    padding-right: 10px;
+}
+
+#content #buttons button,
+#aydis button {
+    color: #f5f5f5;
+    font-size: 18px;
+    user-select: none;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: 100ms;
+}
+
+#content #buttons button:focus {
+    box-shadow: 0 0 0 2px #cacaca;
+}
+
+
+#aydis button {
+    background-color: rgb(117, 166, 221);
+    padding: 0 10px;
+    margin: 0 auto;
+}
+
+#content #buttons button:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+#content #buttons button:active {
+    transform: scale(0.95);
+}
+
+
+.disabled-row {
+    pointer-events: none;
+    background-color: rgba(193, 190, 209, .2) !important;
+    color: rgba(0, 0, 0, 0.4);
+    /* user-select: none; */
+}
+
+/* #content #mesa{
+    border: 1px solid #D3D3D3; 
+} */
+#content #mesa #myTable {
+    border-top: none;
+    background: #f5f5f5 !important;
+    color: black;
+}
+
+#mesa {
+    border-top: none;
+}
+#myTable_wrapper{
+    border: 2px solid #cacaca;
+}
+#mesa .column-heads th {
+    position: relative;
+    border-bottom: 2px #cacaca solid;
+}
+
+#mesa .column-heads #sub {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#content #table-box {
+    position: relative;
+    min-width: 1000px;
+    max-width: 3000px;
+    margin-bottom: 15px;
+    /* padding: 10px 80px; */
+}
+
+
+#content #mesa table .data-rows {
+    user-select: none;
+    transition: 30ms;
+}
+
+#content #mesa table .data-rows td {
+    border-bottom: 2px solid #cacaca;
+    height: 50px;
+    padding: 15px 10px;
+    /* min-width: 200px; */
+    max-width: 200px;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#content #mesa table .data-rows:hover {
+    background-color: rgba(202, 202, 202, .5);
+}
+
+#content #mesa table #aydis {
+    min-width: 50px !important;
+    max-width: 50px !important;
+}
+
+#content #mesa table td input,
+#content #mesa table td select {
+    background-color: #cacaca;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+}
+
+
+
+
+
+
+/* #details-row *{
+    outline: red 1px solid;
+} */
+#details-row {
+    /* background-color: #313036; */
+    /* border-radius: 5px; */
+    border-left: 5px solid #11101d !important;
+    /* border-right: 5px solid #11101d !important; */
+    display: flex;
+    /* flex-direction: row; */
+    /* width: 100%; */
+    border-bottom: 2px solid #cacaca;
+    padding: 40px 40px;
+    margin: -10px !important;
+    /* font-weight: bold; */
+    /* outline: red 1px solid; */
+    height: fit-content;
+    overflow-y: auto;
+}
+
+
+#details-row div .martop {
+    margin-top: 10px !important;
+}
+
+/* For all scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    /* width of vertical scrollbar */
+    height: 8px;
+    /* height of horizontal scrollbar */
+}
+
+/* Track (background of scrollbar) */
+::-webkit-scrollbar-track {
+    background: #cacaca;
+    border-radius: 2px;
+}
+
+/* Handle (scroll thumb) */
+::-webkit-scrollbar-thumb {
+    background-color: #11101d;
+    border-radius: 4px;
+    border: 0px solid transparent;
+    background-clip: content-box;
+    border-radius: 2px;
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#goTop {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    font-size: 2rem;
+    visibility: hidden;
+    /* Hide initially */
+    cursor: pointer;
+    z-index: 1000;
+
+    padding: 10px;
+    border-radius: 100%;
+    font-size: 30px;
+    background-color: #11101d;
+    color: white;
+    transition: opacity 0.1s ease, visibility 0.1s ease;
+    opacity: 0;
+}
+
+#goTop.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#morebtn i {
+    font-size: 30px;
+}
+
+p {
+    margin: 0 !important;
+}
+
+.select2-search,
+.select2-search input {
+    background-color: #f5f5f5 !important;
+    border: none !important;
+    outline: none;
+}
+.select2-selection:focus {
+    border-color: #0c0c0c !important;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(127, 127, 127, 0.25) !important;
+}
+.select2-selection {
+    background-color: #ffffff !important;
+    border: none !important;
+    box-shadow: #DEE2E6 0px 0px 0px 1px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #cacaca !important;
+    color: black !important;
+}
+
+
+.active-row {
+    background-color: rgba(202, 202, 202, 0.8) !important;
+}
+
+
+
+#buttons button i {
+    font-size: 25px !important;
+}
+
+
+#myTable th{
+    text-transform: uppercase;
+}
+
+
+#myTable tr input:not(:first-child), #myTable tr select{
+    width: 100%;
+    padding: 5px ;
+}
+
+
+
+
+/* Adjust the container */
+.select2-container--default .select2-selection--multiple {
+    min-height: 38px;
+    padding: 4px 8px;
+    font-size: 0.875rem;
+}
+
+/* Style selected items (tags) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    font-size: 15px;
+    text-transform: capitalize;
+    background-color: transparent;
+    border: none;
+    font-weight: normal;
+}
+
+.select2-search,
+.select2-search input {
+    background-color: #ffffff !important;
+    font-size: 16px;
+    color: #525258 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+
+.select2-selection--multiple {
+    /* max-height: 38px !important; */
+    max-width: 200px !important;
+    min-width: 200px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+}
+
+/* Hide scrollbar for Chrome, Edge, Safari */
+.select2-selection--multiple::-webkit-scrollbar {
+    display: none;
+}
+

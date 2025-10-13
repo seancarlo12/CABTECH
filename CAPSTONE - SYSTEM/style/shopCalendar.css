@@ -1,0 +1,40 @@
+#content{
+    padding: 0;
+    margin: 10px 5% !important;
+    max-width: none !important;
+}
+
+#calendar{
+    margin-top: 50px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.fc-toolbar-title{
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.fc-header-toolbar
+button{
+    background-color: #11101d !important; 
+} 
+
+.fc-header-toolbar .fc-button-active{
+    background-color: #46454d !important; 
+}
+.fc-daygrid-day-number {
+    color: #11101d; 
+  }
+
+  .fc-event-title {
+    color:#11101d; /* default is black, set to white for better contrast */
+  }
+
+  .fc-col-header-cell-cushion {
+    color: #11101d; /* red */
+    font-weight: bold;
+  }
+
+  .fc-day-today{
+    background-color: rgba(255, 230, 0, 0.1) !important;
+  }

@@ -1,0 +1,187 @@
+.dashboard {
+    max-width: 1800px;
+    min-width: 800px;
+    margin: 0;
+    padding: 0;
+    margin-top: 50px;
+    width: 100% !important;
+}
+
+/* Filter Section */
+.filters {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.filters b{
+    font-size: 25px;
+    border-right: 2px solid lightgray;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.filters label {
+    font-weight: bold;
+    margin-right: 5px;
+    width: fit-content;
+}
+
+.filters input,
+.filters select {
+    padding: 6px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.filters button {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.filter-row{
+    display: flex;
+    align-items: center;
+}
+/* Stats boxes */
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 25%;
+}
+
+.stat-box {
+    background: #fff;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    height: 170px;
+
+}
+
+.stat-box.itemsRev {
+    height: 170px !important;
+}
+
+.stat-box h3 {
+    font-weight: bolder;
+    font-size: 16px;
+    background: #111;
+    color: #fff;
+    padding: 6px;
+    margin: 0 0 10px 0;
+    border-radius: 3px;
+}
+
+.stat-box p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Chart + Tables */
+.charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns */
+    gap: 20px;
+    width: 100%;
+    margin-left: 20px;
+    /* optional, can remove if you want them centered */
+}
+
+.chart-box {
+    background: #fff;
+    border-radius: 6px;
+    padding: 0;
+    border: 1px solid #ddd;
+    width: 100%;
+    /* grid will handle sizing */
+}
+
+.chart-box h3 {
+    font-weight: bolder;
+    font-size: 16px;
+    background: #111;
+    color: #fff;
+    padding: 6px;
+    margin: 0 0 10px 0;
+    border-radius: 3px;
+}
+
+.legend-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 300px;
+    /* font-size: 14px; */
+}
+
+.legend-list li {
+    margin: 3px 0;
+}
+
+canvas {
+    /* max-width: 500px; */
+    margin: auto;
+    display: block;
+}
+
+
+#box-container {
+    display: flex;
+    width: 100%;
+}
+
+
+
+.insidebox {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    position: relative;
+    padding: 0;
+}
+
+.canvas-wrapper{
+    /* outline: 1px solid red; */
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.canvas-wrapper canvas{
+width: 300 !important;
+height: 300 !important;
+}
+
+#applyFilters{
+    margin-right: 20px;
+}
+
+.filter-row button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.filter-row button i{
+    font-size: 20px;
+}
