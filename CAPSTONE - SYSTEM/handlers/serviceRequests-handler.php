@@ -919,6 +919,7 @@ if ($action == 'assignMechanicsToRequest') {
 if (isset($_POST['action']) && $_POST['action'] === 'updateSchedule') {
     $request_id = $_POST['request_id'] ?? null;
     $new_schedule = $_POST['new_schedule'] ?? null;
+    $reason = $_POST['resched_reason'] ?? null;
 
     if (!$request_id || !$new_schedule) {
         $response['status'] = 'error';
@@ -974,6 +975,33 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateSchedule') {
         $response['message'] = 'Schedule updated and reschedule count incremented.';
         $response['updated_request'] = $updatedRow;
         insertLog($db_connection, "Rescheduled a service request / Request ID: $request_id", "Request");
+
+        // ✅ Fetch client’s account_id from clientstbl
+        $client_account_id = null;
+        if (!empty($updatedRow['client_id'])) {
+            $clientLookup = $db_connection->prepare("SELECT account_id FROM clientstbl WHERE client_id = ?");
+            $clientLookup->bind_param('i', $updatedRow['client_id']);
+            $clientLookup->execute();
+            $clientResult = $clientLookup->get_result();
+            if ($clientRow = $clientResult->fetch_assoc()) {
+                $client_account_id = $clientRow['account_id'];
+            }
+            $clientLookup->close();
+        }
+
+        // ✅ Format the new schedule for notification (example: "October 15, 2025 at 2:30 PM")
+        $formatted_schedule = date('F j, Y \\a\\t g:i A', strtotime($new_schedule));
+
+        // ✅ Send notification only if client_account_id is valid
+        if (!empty($client_account_id)) {
+            sendNotification(
+                $db_connection,
+                'service',
+                "Your Request #$request_id has been rescheduled to - $formatted_schedule / Reason: $reason",
+                [$client_account_id],
+                'requests'
+            );
+        }
     } catch (Exception $e) {
         // Rollback transaction on any error
         $db_connection->rollback();

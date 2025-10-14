@@ -755,12 +755,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <label for="resched-reason">Reason for Rescheduling Request</label>
                     <select id="resched-reason" name="resched-reason" class="form-select">
                         <option value="" hidden selected>Select a Reason</option>
-                        <option value="parts_not_in_stock">Required parts not in stock</option>
-                        <option value="conflict_booking">Conflict with another booking</option>
-                        <option value="customer_requested">Customer requested change</option>
-                        <option value="shop_emergency">Emergency at the shop</option>
-                        <option value="vehicle_not_brought_in">Customer did not bring in the vehicle</option>
-                        <option value="other">Other...</option>
+                        <option value="Parts not in stock">Required parts not in stock</option>
+                        <option value="Conflict booking">Conflict with another booking</option>
+                        <option value="Customer requested">Customer requested change</option>
+                        <option value="Shop emergency">Emergency at the shop</option>
+                        <option value="Vehicle not brought in">Customer did not bring in the vehicle</option>
+                        <option value="Other">Other...</option>
                     </select>
 
                     <div id="custom-reason-group" style="display:none; margin-top:10px;">
@@ -769,7 +769,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" id="rechedbtn" class="btn btn-primary"> <i class="bx bx-plus"></i>Reschedule</button>
+                        <button type="submit" id="reschedbtn" class="btn btn-primary"> <i class="bx bx-plus"></i>Reschedule</button>
                     </div>
                 </div>
             </div>
@@ -2633,7 +2633,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         });
 
 
-        $(document).on('click', '#rechedbtn', function() {
+        $(document).on('change', '#resched-reason', function() {
+            if ($(this).val() === 'Other') {
+                $('#custom-reason-group').show();
+                $('#custom-reason').prop('required', true);
+            } else {
+                $('#custom-reason-group').hide();
+                $('#custom-reason').val('').prop('required', false);
+            }
+        });
+
+
+        $(document).on('click', '#reschedbtn', function() {
 
             const selectedDate = newSched_fp.selectedDates[0]; // Date object
 
@@ -2651,10 +2662,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
 
             const newSched = newSched_fp.formatDate(selectedDate, 'Y-m-d H:i:S');
-            const reason = $('#resched-reason').val();
+            
+            const selectedReason = $('#resched-reason').val();
             const customReasonVisible = $('#custom-reason-group').is(':visible');
             const customReason = $('#custom-reason').val().trim();
 
+            const reason = (selectedReason === 'Other' && customReasonVisible && customReason)
+            ? customReason
+            : selectedReason;
 
             // Validate reason
             if (reason === '') {
@@ -2696,6 +2711,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 data: {
                     request_id: ActiveRowId,
                     new_schedule: newSched,
+                    resched_reason: reason === 'other' ? customReason : reason,
                     action: 'updateSchedule'
                 },
                 success: function(response) {

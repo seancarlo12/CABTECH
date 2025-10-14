@@ -145,7 +145,7 @@ if ($isLinked && $client_id > 0) {
                             <label for="login_password" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" id="login_password" name="password" class="form-control" placeholder="Enter Password" required>
-                                <button type="button" class="btn btn-outline-secondary" onclick="togglePassword(this)" aria-label="Toggle password visibility">
+                                <button type="button" class="btn btn-outline-secondary" onclick="togglePassword(this)" data-target="#login_password" aria-label="Toggle password visibility">
                                     <i class="fas fa-eye" id="togglePasswordIcon"></i>
                                 </button>
                             </div>
@@ -183,6 +183,7 @@ if ($isLinked && $client_id > 0) {
                                 <input id="signup_username" name="username" type="text"
                                     class="form-control"
                                     placeholder="Enter Username" required disabled>
+                                <small id="usernameHelp" class="text-danger d-none"></small>
                             </div>
 
                             <div class="col-md-6">
@@ -225,11 +226,16 @@ if ($isLinked && $client_id > 0) {
                                 <div class="input-group">
                                     <input id="signup_password" name="password" type="password"
                                         class="form-control"
-                                        placeholder="Enter Password" minlength="8" required disabled>
+                                        placeholder="Enter Password" minlength="8"
+                                        oninput="validatePassword(this, 'passwordError', 'passwordStrength')"
+                                        required disabled autocomplete="off">
                                     <button type="button" class="btn btn-outline-secondary toggle-password" onclick="togglePassword(this)" data-target="#signup_password">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </div>
+                                <!-- These IDs can be anything — just match them in the oninput -->
+                                <div id="passwordError" class="mt-2 small"></div>
+                                <div id="passwordStrength" class="mt-2 small fw-bold"></div>
                             </div>
 
                             <div class="col-md-6">
@@ -237,7 +243,7 @@ if ($isLinked && $client_id > 0) {
                                 <div class="input-group">
                                     <input id="signup_confirm_password" name="confirm_password" type="password"
                                         class="form-control"
-                                        placeholder="Confirm Password" required disabled>
+                                        placeholder="Confirm Password" required disabled autocomplete="off">
                                     <button type="button" class="btn btn-outline-secondary toggle-password" onclick="togglePassword(this)" data-target="#signup_confirm_password">
                                         <i class="fas fa-eye"></i>
                                     </button>
@@ -439,6 +445,131 @@ if ($isLinked && $client_id > 0) {
 
     <script>
         $(document).ready(function() {
+            $('#signup_contact').on('input', function() {
+                let val = $(this).val();
+
+                // Remove any non-digit characters
+                val = val.replace(/\D/g, '');
+
+                // Force start with "09"
+                if (!val.startsWith('09')) {
+                    val = '09' + val.replace(/^09/, '');
+                }
+
+                // Limit to 11 digits max
+                if (val.length > 11) {
+                    val = val.slice(0, 11);
+                }
+
+                $(this).val(val);
+
+                // Optional: Bootstrap validation styling
+                const isValid = /^09\d{9}$/.test(val);
+                if (isValid) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+
+            $('#signup_username').on('input', function() {
+                let val = $(this).val().trim();
+                const help = $('#usernameHelp');
+
+                // Strip invalid chars (only allow letters, numbers, _ and -)
+                val = val.replace(/[^a-zA-Z0-9_-]/g, '');
+                $(this).val(val);
+
+                let message = '';
+                if (val.length === 0) {
+                    message = '';
+                } else if (val.length < 6) {
+                    message = 'Username must be at least 6 characters long.';
+                } else if (!/^[a-zA-Z0-9_-]+$/.test(val)) {
+                    message = 'Only letters, numbers, underscores (_) and hyphens (-) are allowed.';
+                }
+
+                if (message) {
+                    $(this).addClass('is-invalid').removeClass('is-valid');
+                    help.text(message).removeClass('d-none').addClass('text-danger');
+                } else {
+                    $(this).addClass('is-valid').removeClass('is-invalid');
+                    help.text('').addClass('d-none');
+                }
+            });
+        });
+        // 🔹 Reusable password validation
+        function validatePassword(input, errorId, strengthId) {
+            const password = input.value.trim();
+            const errorBox = document.getElementById(errorId);
+            const strengthBox = document.getElementById(strengthId);
+
+            // Reset alerts
+            errorBox.classList.add('d-none');
+            strengthBox.textContent = '';
+
+            // Rules
+            const allowedPattern = /^[A-Za-z0-9_]+$/;
+            if (password.length > 0 && password.length < 6) {
+                return showError('Password must be at least 6 characters long.');
+            }
+            if (password && !allowedPattern.test(password)) {
+                return showError('Only letters, numbers, and underscore (_) are allowed.');
+            }
+
+            // Strength logic
+            const strength = getPasswordStrength(password);
+            if (strength) {
+                strengthBox.textContent = `Strength: ${strength}`;
+                strengthBox.className = `mt-2 small fw-bold ${getStrengthColor(strength)}`;
+            }
+
+            // Helper: show bootstrap alert
+            function showError(message) {
+                errorBox.textContent = message;
+                errorBox.classList.remove('d-none');
+                strengthBox.textContent = '';
+            }
+        }
+
+        // 🔹 Helper: Determine strength label
+        function getPasswordStrength(pass) {
+            if (!pass) return '';
+            const hasLower = /[a-z]/.test(pass);
+            const hasUpper = /[A-Z]/.test(pass);
+            const hasNumber = /\d/.test(pass);
+            const lengthScore = pass.length >= 10 ? 2 : pass.length >= 6 ? 1 : 0;
+
+            const score = [hasLower, hasUpper, hasNumber].filter(Boolean).length + lengthScore;
+
+            if (score <= 2) return 'Weak';
+            if (score === 3) return 'Moderate';
+            return 'Strong';
+        }
+
+        // 🔹 Helper: Apply color style
+        function getStrengthColor(strength) {
+            switch (strength) {
+                case 'Weak':
+                    return 'text-danger';
+                case 'Moderate':
+                    return 'text-warning';
+                case 'Strong':
+                    return 'text-success';
+                default:
+                    return '';
+            }
+        }
+
+
+        $(document).ready(function() {
+
+
+
+
+
+
+
 
 
 
@@ -846,7 +977,7 @@ if ($isLinked && $client_id > 0) {
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Email Verified',
-                                        text: 'You may now choose a username and password to finish registration.',
+                                        text: 'You may now choose a username, password and complete the registration.',
                                         confirmButtonText: 'Continue'
                                     }).then(() => {
                                         // focus username so user can continue
@@ -1227,7 +1358,7 @@ if ($isLinked && $client_id > 0) {
                 vehicles.forEach(v => {
                     // display plate + make/model
                     const label = (v.plate_number ? v.plate_number + " — " : "") + v.make + " " + v.model;
-                    
+
                     $sel.append(`
                         <option 
                             value="${v.vehicle_id}"
@@ -1740,32 +1871,32 @@ if ($isLinked && $client_id > 0) {
 
 
 
-              // --- STEP 2: Validate vehicle (if new user or new vehicle) ---
-if (currentStep === 2) {
-    const isNewVehicle = $("#addVehicleSection").is(":visible") || selectedVehicle?.isNew;
+                // --- STEP 2: Validate vehicle (if new user or new vehicle) ---
+                if (currentStep === 2) {
+                    const isNewVehicle = $("#addVehicleSection").is(":visible") || selectedVehicle?.isNew;
 
-    if (isNewVehicle) {
-        // Validate NEW vehicle fields
-        const model = $("#model").val().trim();
-        const make = $("#make").val().trim();
-        const transmission_type = getSelectedValue('transmission_type');
-        const fuel_type = getSelectedValue('fuel_type');
+                    if (isNewVehicle) {
+                        // Validate NEW vehicle fields
+                        const model = $("#model").val().trim();
+                        const make = $("#make").val().trim();
+                        const transmission_type = getSelectedValue('transmission_type');
+                        const fuel_type = getSelectedValue('fuel_type');
 
-        if (!fuel_type || !transmission_type || !model || !make) {
-            Swal.fire("Incomplete Vehicle Info", "Please fill in all required vehicle fields before continuing.", "warning");
-            e.preventDefault();
-            return;
-        }
-    } else {
-        // Validate EXISTING vehicle selection
-        const selectedVehicleId = $("#existingVehicles").val();
-        if (!selectedVehicleId) {
-            Swal.fire("No Vehicle Selected", "Please select a vehicle from the list before continuing.", "warning");
-            e.preventDefault();
-            return;
-        }
-    }
-}
+                        if (!fuel_type || !transmission_type || !model || !make) {
+                            Swal.fire("Incomplete Vehicle Info", "Please fill in all required vehicle fields before continuing.", "warning");
+                            e.preventDefault();
+                            return;
+                        }
+                    } else {
+                        // Validate EXISTING vehicle selection
+                        const selectedVehicleId = $("#existingVehicles").val();
+                        if (!selectedVehicleId) {
+                            Swal.fire("No Vehicle Selected", "Please select a vehicle from the list before continuing.", "warning");
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+                }
 
                 // --- STEP 3: Require at least one selected service ---
                 if (currentStep === 3) {
@@ -1880,7 +2011,7 @@ if (currentStep === 2) {
                     fuel: getSelectedValue('fuel_type') || $("#existingVehicles option:selected").data('fuel') || '—'
                 };
                 console.log("Selected vehicle for summary:", vehicle);
-                
+
 
                 // --- SCHEDULE ---
                 const scheduleRaw = $("#schedule_dt").val() || '';
