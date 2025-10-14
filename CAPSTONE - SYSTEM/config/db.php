@@ -413,8 +413,8 @@ function createDatabaseAndTables($dbname)
         $mechAccountId = mysqli_insert_id($db_connection);
 
         $insertMechUser = "
-            INSERT INTO userstbl (account_id, role, first_name, last_name, status)
-            VALUES ($mechAccountId, 'Mechanic', '{$mech['first_name']}', '{$mech['last_name']}', 'Active')
+            INSERT INTO userstbl (account_id, role, first_name, last_name, status, work_status)
+            VALUES ($mechAccountId, 'Mechanic', '{$mech['first_name']}', '{$mech['last_name']}', 'Active', 'In')
         ";
         if (!mysqli_query($db_connection, $insertMechUser)) {
             die("Failed to insert mechanic user: " . mysqli_error($db_connection));
