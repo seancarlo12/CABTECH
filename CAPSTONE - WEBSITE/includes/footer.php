@@ -20,21 +20,33 @@
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 text-center text-md-start">
                 <h5 class="text-white mb-4 mt-3">Our Services</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#">Auto Scanning</a></li>
-                    <li class="mb-2"><a href="#">PMS Service</a></li>
-                    <li class="mb-2"><a href="#">EGR Cleaning</a></li>
-                    <li class="mb-2"><a href="#">Throttle Body Cleaning</a></li>
-                    <li class="mb-2"><a href="#">Aircon Service</a></li>
+                    <?php
+                    // Fetch first 4 active services
+                    $sql = "SELECT service_id, service_name FROM servicestbl WHERE status = 'Active' LIMIT 4";
+                    $result = $db_connection->query($sql);
+
+                    if ($result && $result->num_rows > 0) {
+                        while ($service = $result->fetch_assoc()) {
+                            $name = htmlspecialchars($service['service_name']);
+                            $id = $service['service_id'];
+                            echo "<li class='mb-2'><a href='/CABTECH/CAPSTONE - WEBSITE/pages/services/service.php?id={$id}'>{$name}</a></li>";
+                        }
+                        // Add "See More" as the 5th item
+                        echo "<li class='mb-2'><a href='/CABTECH/CAPSTONE - WEBSITE/pages/servicesPage.php' class='fw-semibold'>See More...</a></li>";
+                    } else {
+                        echo "<li class='mb-2 text-muted'>No services available</li>";
+                    }
+                    ?>
                 </ul>
             </div>
 
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 text-center text-md-start">
                 <h5 class="text-white mb-4 mt-3">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/assets/index.php">Home</a></li>
-                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/assets/pages/services.php">Services</a></li>
-                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/assets/pages/trackprogress.php">Track Progress</a></li>
-                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/assets/pages/services.php">Book Service</a></li>
+                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/index.php">Home</a></li>
+                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/pages/servicesPage.php">Services</a></li>
+                    <li class="mb-2"><a href="/CABTECH/CAPSTONE - WEBSITE/pages/location.php">Location</a></li>
+                    <li class="mb-2"><a href="#" data-bs-toggle="modal" data-bs-target="#serviceRequestModal">Schedule Now</a></li>
                 </ul>
             </div>
 
@@ -43,7 +55,7 @@
                 <p class="text-white small mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Caloocan City,
                     Philippines</p>
                 <p class="text-white small mb-2"><i class="fas fa-phone-alt me-2"></i> +63 997 335 3468</p>
-                <p class="text-white small mb-2"><i class="fas fa-envelope me-2"></i> info@cabtech.com</p>
+                <p class="text-white small mb-2"><i class="fas fa-envelope me-2"></i> cabtech.system@gmail.com</p>
             </div>
         </div>
         <hr>

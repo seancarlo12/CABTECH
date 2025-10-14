@@ -1,4 +1,6 @@
 <?php
+session_name('CABTECH_WEBSITE');
+session_start();
 // myservices.php
 // include header/navigation if present (adjust relative paths as needed)
 if (file_exists('../includes/header.php')) {
@@ -24,8 +26,6 @@ include_once '../includes/headNav.php';
     <main class="py-4">
         <section class="container mb-5">
             <?php
-            // backend logic
-            if (session_status() === PHP_SESSION_NONE) session_start();
 
             // include DB connection
             $path = dirname(__DIR__, 2) . '/CAPSTONE - SYSTEM/config/db.php';

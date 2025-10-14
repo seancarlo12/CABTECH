@@ -1,5 +1,6 @@
 <?php
 // pages/shopCalendar.php
+session_name('CABTECH_SYSTEM');
 session_start();
 include_once '../config/db.php'; // expects $db_connection (mysqli)
 

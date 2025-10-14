@@ -1,6 +1,7 @@
 <?php
 // handlers/send_verification_email.php
 header('Content-Type: application/json');
+session_name('CABTECH_WEBSITE');
 session_start();
 $response = [];
 
@@ -154,12 +155,12 @@ log_email_debug("Generated code for {$email}: {$code}");
 
 // --- PHPMailer config ---
 $smtpHost = 'smtp.gmail.com';
-$smtpUser = 'tolentinoesie@gmail.com';
-$smtpPass = 'cira gnht miqq btzl';
+$smtpUser = 'cabtech.system@gmail.com';
+$smtpPass = 'xpze ongj ijau zyiu';
 $smtpPort = 587;
 $smtpSecure = 'tls';
-$fromEmail = 'tolentinoesie@gmail.com';
-$fromName = 'CabTech Verification';
+$fromEmail = 'cabtech.system@gmail.com';
+$fromName = 'CABTECH - Email Verification';
 
 try {
     $mail = new PHPMailer(true);

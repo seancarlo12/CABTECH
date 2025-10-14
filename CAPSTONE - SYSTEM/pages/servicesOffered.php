@@ -1,4 +1,5 @@
 <?php
+session_name('CABTECH_SYSTEM');
 session_start();
 include_once '../config/db.php';
 

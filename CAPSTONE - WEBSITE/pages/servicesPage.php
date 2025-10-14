@@ -1,5 +1,7 @@
 <?php
 
+session_name('CABTECH_WEBSITE');
+session_start();
 // Check if the file exists before including
 if (file_exists('../includes/header.php')) {
     include_once '../includes/header.php';

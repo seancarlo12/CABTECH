@@ -1,6 +1,7 @@
 <?php
 // handlers/verify_email_code.php
 header('Content-Type: application/json');
+session_name('CABTECH_WEBSITE');
 session_start();
 $response = [];
 

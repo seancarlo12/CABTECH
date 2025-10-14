@@ -1,4 +1,5 @@
 <?php
+session_name('CABTECH_SYSTEM');
 session_start();
 
 if (file_exists('../config/db.php')) {
@@ -11,10 +12,7 @@ if (!isset($_SESSION['User_id'])) {
     exit;
 }
 
-// Strong cache prevention headers
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");
-header("Expires: 0");
+
 ?>
 
 

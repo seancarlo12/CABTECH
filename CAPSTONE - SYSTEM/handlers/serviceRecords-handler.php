@@ -1,4 +1,5 @@
 <?php
+session_name('CABTECH_SYSTEM');
 session_start();
 header('Content-Type: application/json');
 

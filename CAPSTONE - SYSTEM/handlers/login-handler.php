@@ -1,4 +1,5 @@
 <?php
+session_name('CABTECH_SYSTEM');
 session_start();
 if (file_exists('../config/db.php')) {
     include_once('../config/db.php');

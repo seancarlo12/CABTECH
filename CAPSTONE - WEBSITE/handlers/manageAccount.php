@@ -1,6 +1,7 @@
 <?php
 // handlers/manageAccount.php
 header('Content-Type: application/json; charset=utf-8');
+session_name('CABTECH_WEBSITE');
 session_start();
 
 // include DB (adjust path if your handlers folder differs)

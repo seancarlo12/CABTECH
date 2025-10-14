@@ -43,7 +43,7 @@ if ($isLinked && $client_id > 0) {
         <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
             <div class="containerHead">
                 <!-- Logo -->
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="/CABTECH/CAPSTONE - WEBSITE/index.php">
                     <img src="/CABTECH/CAPSTONE - WEBSITE/assets/img/primarylogo.png" alt="logo" style="height: 60px;">
                 </a>
 

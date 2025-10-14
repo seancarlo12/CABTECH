@@ -1,5 +1,6 @@
 <?php
 // Start the session
+session_name('CABTECH_WEBSITE');
 session_start();
 
 // include DB (adjust path if your handlers folder differs)

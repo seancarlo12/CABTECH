@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_name('CABTECH_WEBSITE');
+// session_start();
 $path = dirname(__DIR__, 2) . '/CAPSTONE - SYSTEM/config/db.php';
 if (file_exists($path)) {
     include_once($path);

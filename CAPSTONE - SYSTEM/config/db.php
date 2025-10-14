@@ -35,7 +35,8 @@ function isDBExisting($dbname)
     return GetValue("SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '$dbname'") + 0;
 }
 
-function insertLog($db_connection, $activity, $activity_type = 'Other') {
+function insertLog($db_connection, $activity, $activity_type = 'Other')
+{
     // Ensure session is active
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -443,6 +444,32 @@ function createDatabaseAndTables($dbname)
             die("Failed to insert service: " . mysqli_error($db_connection));
         }
     }
+
+
+    $defaultSpecialties = [
+        ['name' => 'Engine Specialist', 'description' => 'Focuses on diagnosing and repairing engine-related issues'],
+        ['name' => 'Brake Specialist', 'description' => 'Expert in brake system inspection, repair, and replacement'],
+        ['name' => 'Transmission Specialist', 'description' => 'Handles transmission system maintenance and repairs'],
+        ['name' => 'Electrical Specialist', 'description' => 'Specializes in diagnosing and fixing electrical and wiring problems'],
+        ['name' => 'Suspension Specialist', 'description' => 'Inspects and repairs shocks, struts, and suspension systems'],
+        ['name' => 'Air Conditioning Specialist', 'description' => 'Maintains and repairs vehicle air conditioning systems'],
+        ['name' => 'Tire and Wheel Specialist', 'description' => 'Focuses on wheel alignment, balancing, and tire services'],
+        ['name' => 'Battery Specialist', 'description' => 'Performs testing, maintenance, and replacement of vehicle batteries'],
+        ['name' => 'Oil and Lubrication Technician', 'description' => 'Performs oil changes and lubrication services'],
+        ['name' => 'General Auto Mechanic', 'description' => 'Performs a wide range of vehicle inspection, maintenance, and repair tasks']
+    ];
+
+    foreach ($defaultSpecialties as $spec) {
+        $insertSpecialty = "
+            INSERT INTO specialtiestbl (name, description)
+            VALUES ('{$spec['name']}', '{$spec['description']}')
+        ";
+        if (!mysqli_query($db_connection, $insertSpecialty)) {
+            die('Failed to insert specialty: ' . mysqli_error($db_connection));
+        }
+    }
+
+
     echo "<script>console.log('✅ Database and all tables created successfully. Default Super Admin added.');</script>";
 }
 
