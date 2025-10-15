@@ -1478,6 +1478,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Show loading alert
+                    Swal.fire({
+                        iconHtml: '<i class="bx bx-loader-circle"></i>',
+                        title: 'Processing...',
+                        text: isApprove 
+                            ? 'Approving the request and updating the client. Please wait.' 
+                            : 'Cancelling the request and notifying the client. Please wait.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
                     $.ajax({
                         url: 'handlers/serviceRequests-handler.php',
                         method: 'POST',
@@ -1808,6 +1821,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 cancelButtonText: 'Back'
             }).then((result) => {
                 if (result.isConfirmed) {
+
+                    
+                    // Show loading alert
+                    Swal.fire({
+                        iconHtml: '<i class="bx bx-loader-circle"></i>',
+                        title: 'Processing...',
+                        text: 'Processing mechanic assignments and notifying the client...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
                     console.log('Assigning mechanics:', AssignedMechanics);
                     $.ajax({
                         url: 'handlers/serviceRequests-handler.php',

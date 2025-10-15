@@ -149,6 +149,189 @@ function sendNotification($db_connection, $type, $message, $recipients, $goTo = 
 
 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+function sendRequestStatusEmail($db_connection, $client_id, $request_id, $requestStatus, $reason = null)
+{
+    // --- 1. Fetch client info ---
+    $query = "SELECT account_id, first_name, last_name, email FROM clientstbl WHERE client_id = ?";
+    $stmt = $db_connection->prepare($query);
+    $stmt->bind_param("i", $client_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        return ['success' => false, 'message' => 'Client not found.'];
+    }
+
+    $client = $result->fetch_assoc();
+
+    // --- 2. Skip clients who already have an account ---
+    // if (!empty($client['account_id'])) {
+    //     return ['success' => false, 'message' => 'Client has an account; handled by another notification system.'];
+    // }
+
+    // --- 3. Prepare client fields ---
+    $clientName = trim($client['first_name'] . ' ' . $client['last_name']);
+    $clientEmail = $client['email'];
+
+    if (empty($clientEmail)) {
+        return ['success' => false, 'message' => 'Client email is missing.'];
+    }
+
+    // --- 4. Fetch requested service names for this request_id ---
+    $svcSql = "
+        SELECT rs.custom_service, s.service_name
+        FROM requested_servicestbl rs
+        LEFT JOIN servicestbl s ON rs.service_id = s.service_id
+        WHERE rs.request_id = ?
+    ";
+    $svcStmt = $db_connection->prepare($svcSql);
+    $svcStmt->bind_param("i", $request_id);
+    $svcStmt->execute();
+    $svcResult = $svcStmt->get_result();
+
+    $services = [];
+    while ($r = $svcResult->fetch_assoc()) {
+        // prefer custom_service if present (custom request), otherwise use service_name
+        $name = null;
+        if (!empty(trim((string)$r['custom_service']))) {
+            $name = trim($r['custom_service']);
+        } elseif (!empty(trim((string)$r['service_name']))) {
+            $name = trim($r['service_name']);
+        }
+        if ($name !== null && $name !== '') {
+            $services[] = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        }
+    }
+
+    $svcStmt->close();
+
+    $servicesList = count($services) ? implode(', ', $services) : 'requested service(s)';
+
+    // --- 5. Normalize and prepare status-specific messages ---
+    $statusKey = strtolower(trim($requestStatus));
+    if ($statusKey === 'canceled') $statusKey = 'cancelled';
+    $displayStatus = ucwords($statusKey);
+
+    // Better phrasing for "is now" vs "has been"
+    $intro = in_array($displayStatus, ['In Progress', 'Invoice Issued'])
+        ? "Your Request #{$request_id} for {$servicesList} is now <b style='font-size: 18px; text-transform: uppercase;'>{$displayStatus}</b>."
+        : "Your Request #{$request_id} for {$servicesList} has been <b style='font-size: 18px; text-transform: uppercase;'>{$displayStatus}</b>.";
+
+    $details = "";
+
+    switch ($statusKey) {
+        case 'cancelled':
+            $reasonText = !empty($reason) ? htmlspecialchars($reason, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : 'No reason provided.';
+            $details = "
+            We regret to inform you that your request has been cancelled.
+            <br><b>Reason:</b> {$reasonText}
+            <br><br>We sincerely apologize for any inconvenience this may have caused. Please don't hesitate to contact us if you wish to reschedule or need further assistance.
+        ";
+            break;
+
+        case 'approved':
+            $details = "
+            Please be prepared to bring your vehicle to the shop on the scheduled date and time.
+            We recommend arriving about <b>30 minutes earlier</b> to ensure a smooth check-in process.
+            Our team will prepare for your requested service(s) and you'll receive further updates if anything changes.
+        ";
+            break;
+
+        case 'in progress':
+            $details = "
+            Work on your vehicle has started. Our mechanics are currently performing the requested service(s).
+            We will notify you once the work is completed and your invoice is ready for review.
+        ";
+            break;
+
+        case 'invoice issued':
+            $details = "
+            The invoice for your service request has been issued and is now available.<br><br>
+            If you have an account, you may log in to your CabTech Auto Services account to review your invoice and proceed with payment.<br>
+            For clients without an account, please visit CabTech Auto Services to request and review your invoice in person.<br><br>
+            Once payment is confirmed, your request will be marked as <b>Completed</b>.
+        ";
+            break;
+
+        case 'completed':
+            $details = "
+            Payment has been confirmed and your request is now fully completed.
+            Thank you for trusting <b>CabTech Auto Services</b>! We appreciate your business and hope to serve you again.
+        ";
+            break;
+
+        default:
+            $details = "
+            There is an update to your service request. Please contact us if you need more details.
+        ";
+            break;
+    }
+
+
+    // --- 6. Compose email body ---
+    $subject = "CabTech Auto Services - Service Request Status Update";
+    $body = "
+    <html>
+    <body style='font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 20px; color: #333;'>
+        <table style='max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;'>
+            <tr>
+                <td style='background-color: #D42A2A; padding: 20px 30px; text-align: center;'>
+                    <h1 style='color: #ffffff; margin: 0; font-size: 24px; text-transform: uppercase; font-weight: bolder;'>CabTech Auto Services</h1>
+                </td>
+            </tr>
+            <tr>
+                <td style='padding: 30px;'>
+                    <p style='font-size: 16px;'>Dear <b>" . htmlspecialchars($clientName, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</b>,</p>
+                    <p style='font-size: 15px; line-height: 1.6; color: #444;'>{$intro}</p>
+                    <p style='font-size: 15px; line-height: 1.6; color: #444;'>{$details}</p>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td style='background-color: #f0f0f0; text-align: center; padding: 15px;'>
+                    <p style='font-size: 12px; color: #777; margin: 0;'>This is an automated message. Please do not reply.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    ";
+
+    // --- 7. Send email using PHPMailer ---
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/PHPMailer.php');
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/Exception.php');
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/SMTP.php');
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'cabtech.system@gmail.com';
+        $mail->Password   = 'xpze ongj ijau zyiu'; // keep this in config for production
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->setFrom('cabtech.system@gmail.com', 'CabTech Auto Services');
+        $mail->addAddress($clientEmail, $clientName);
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        $mail->send();
+        return ['success' => true, 'message' => 'Email sent to client without account.'];
+    } catch (\Exception $e) {
+        return ['success' => false, 'message' => 'Mailer Error: ' . $mail->ErrorInfo];
+    } catch (\Exception $e) {
+        return ['success' => false, 'message' => 'General Error: ' . $e->getMessage()];
+    }
+}
+
 
 
 
@@ -200,11 +383,11 @@ function createDatabaseAndTables($dbname)
     CREATE TABLE `invoicetbl` (
         `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
         `record_id` int(11) NOT NULL,
-        `items_total` double(10,2) NOT NULL,
-        `services_total` double(10,2) NOT NULL,
-        `grand_total` double(10,2) NOT NULL,
+        `items_total` double(10,2) NOT NULL DEFAULT 0.00,
+        `services_total` double(10,2) NOT NULL DEFAULT 0.00,
+        `grand_total` double(10,2) NOT NULL DEFAULT 0.00,
         `issued_dt` datetime DEFAULT NULL,
-        `status` varchar(255) NOT NULL,
+        `status` varchar(255) NOT NULL DEFAULT 'Draft',
         PRIMARY KEY (`invoice_id`)
     );
 

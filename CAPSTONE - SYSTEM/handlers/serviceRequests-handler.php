@@ -875,7 +875,6 @@ if ($action == 'assignMechanicsToRequest') {
         echo json_encode($response);
         exit;
     }
-
     // Commit all
     $db_connection->commit();
     $response['status'] = 'success';
@@ -883,6 +882,7 @@ if ($action == 'assignMechanicsToRequest') {
     $response['assigned_count'] = count($mechanics);
     $response['request_id'] = $requestId;
 
+    // --- Send notifications to assigned mechanics ---
     $recipients = [];
     foreach ($mechanics as $m) {
         $stmt = mysqli_prepare($db_connection, "SELECT account_id FROM userstbl WHERE user_id = ?");
@@ -895,23 +895,41 @@ if ($action == 'assignMechanicsToRequest') {
         mysqli_stmt_close($stmt);
     }
 
-    // Now send the notification
+    // Notify assigned mechanics
     $type = "service";
     $message = "You have been assigned to a service. [Request ID: $requestId]";
     sendNotification($db_connection, $type, $message, $recipients, 'records');
 
+    // Notify admin
     $adminMessage = "Service request has been started. [Request ID: $requestId]";
     sendNotification($db_connection, $type, $adminMessage, ['Admin'], 'records');
 
-    // Send notification only if account_id exists
+    // Notify client (if account_id exists)
     if (!empty($cli_acc_id)) {
-        sendNotification($db_connection, 'service', "Your Request #$requestId has been started! / Status: In Progress", [$cli_acc_id], 'requests');
+        sendNotification(
+            $db_connection,
+            'service',
+            "Your Request #$requestId has been started! / Status: In Progress",
+            [$cli_acc_id],
+            'requests'
+        );
     }
 
+    // --- Send Email Update to Client ---
+    $emailResult = sendRequestStatusEmail($db_connection, $client_id, $requestId, 'In Progress');
+    $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+    $response['email_message'] = $emailResult['message'];
 
-    insertLog($db_connection, "Assigned Mechanics and Started a Service Request / Request ID: $requestId > Record ID: $recordId", "Request");
+    // --- Log Action ---
+    $logMsg = "Assigned Mechanics and Started a Service Request / Request ID: $requestId > Record ID: $recordId";
+    if ($emailResult['success']) {
+        $logMsg .= " / Email: Sent";
+    } else {
+        $logMsg .= " / Email: Failed";
+    }
+    insertLog($db_connection, $logMsg, "Request");
 
-    // Return the response
+    // --- Return Response ---
     echo json_encode($response);
     exit;
 }
@@ -1184,15 +1202,31 @@ if (isset($_POST['action']) && isset($_POST['request_id'])) {
         } else {
             $approve = $db_connection->prepare("UPDATE requeststbl SET status = 'Approved' WHERE request_id = ?");
             $approve->bind_param("i", $requestId);
+
             if ($approve->execute()) {
                 $response['status'] = 'success';
                 $response['message'] = 'Request approved successfully.';
-                insertLog($db_connection, "Approved a Request / Request ID: $requestId", "Request");
 
-                // Send notification only if account_id exists
+                // --- Send in-app notification only if account exists ---
                 if (!empty($account_id)) {
                     sendNotification($db_connection, 'service', "Your Request #$requestId has been approved!", [$account_id], 'requests');
                 }
+
+                // --- Send email update ---
+                $emailResult = sendRequestStatusEmail($db_connection, $client_id, $requestId, 'Approved');
+
+                // --- Include email status in response ---
+                $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+                $response['email_message'] = $emailResult['message'];
+
+                // --- Log approval with email status ---
+                $emailLog = $emailResult['success'] ? 'Email sent successfully' : 'Email failed to send';
+                insertLog($db_connection, "Approved a Request / Request ID: $requestId / {$emailLog}", "Request");
+
+                // --- Append email status to success message ---
+                $response['message'] .= $emailResult['success']
+                    ? ' Email notification sent successfully.'
+                    : ' However, email notification failed to send.';
             } else {
                 $response['status'] = 'error';
                 $response['message'] = 'Failed to approve request.';
@@ -1201,10 +1235,10 @@ if (isset($_POST['action']) && isset($_POST['request_id'])) {
     } elseif ($action === 'cancelRequest') {
         $cancel = $db_connection->prepare("UPDATE requeststbl SET status = 'Cancelled' WHERE request_id = ?");
         $cancel->bind_param("i", $requestId);
+
         if ($cancel->execute()) {
             $response['status'] = 'success';
             $response['message'] = 'Request cancelled successfully.';
-            insertLog($db_connection, "Cancelled a Request / Request ID: $requestId", "Request");
 
             // Send notification only if account_id exists
             if (!empty($account_id)) {
@@ -1216,6 +1250,15 @@ if (isset($_POST['action']) && isset($_POST['request_id'])) {
                     'requests'
                 );
             }
+
+            // Send email update
+            $emailResult = sendRequestStatusEmail($db_connection, $client_id, $requestId, 'Cancelled', $reason);
+            $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+            $response['email_message'] = $emailResult['message'];
+
+            // Log with email status
+            $emailLog = $emailResult['success'] ? 'Email sent' : 'Email failed';
+            insertLog($db_connection, "Cancelled a Request / Request ID: $requestId ($emailLog)", "Request");
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Failed to cancel request.';

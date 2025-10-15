@@ -176,7 +176,49 @@ try {
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = 'Your verification code';
-    $mail->Body = "<p>Your verification code is: <strong>{$code}</strong></p><p>Expires in 10 minutes.</p>";
+    $mail->Body = "
+        <html>
+            <body style='font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; color: #333;'>
+            <table style='max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;'>
+                <!-- Header -->
+                <tr>
+                <td style='background-color: #D42A2A; padding: 20px 30px; text-align: center;'>
+                    <h1 style='color: #ffffff; margin: 0; font-size: 24px; text-transform: uppercase; font-weight: bolder; letter-spacing: 1px;'>
+                    CabTech Auto Services
+                    </h1>
+                </td>
+                </tr>
+
+                <!-- Body -->
+                <tr>
+                <td style='padding: 30px; text-align: center;'>
+                    <h2 style='color: #333; margin-bottom: 16px; font-size: 22px;'>Email Verification</h2>
+                    <p style='font-size: 15px; color: #555; margin-bottom: 20px;'>
+                    Hello! Please use the verification code below to complete your verification.
+                    </p>
+                    <div style='margin: 24px 0;'>
+                    <div style='display: inline-block; font-family: monospace; font-size: 22px; letter-spacing: 4px; color: #D42A2A; padding: 12px 24px; border: 2px solid #D42A2A; border-radius: 6px; background: #fff;'>
+                        " . htmlspecialchars($code) . "
+                    </div>
+                    </div>
+                    <p style='font-size: 14px; color: #666;'>
+                    This code will expire in <strong>10 minutes</strong>.
+                    </p>
+                </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                <td style='background-color: #f0f0f0; text-align: center; padding: 15px;'>
+                    <p style='font-size: 12px; color: #777; margin: 0;'>
+                    This is an automated message from <strong>CabTech Auto Services</strong>. Please do not reply.
+                    </p>
+                </td>
+                </tr>
+            </table>
+            </body>
+        </html>
+        ";
 
     $mail->send();
     $response = ['success' => true, 'message' => 'Verification code sent.'];

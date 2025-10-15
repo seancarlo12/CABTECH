@@ -887,7 +887,7 @@ if (isset($_POST['action']) && $_POST['action'] === "completeInvoice") {
         exit;
     }
 
-    // 🔎 Check if already issued
+    // Check if already issued
     $checkQuery = "SELECT status, record_id FROM invoicetbl WHERE invoice_id = ?";
     $checkStmt  = $db_connection->prepare($checkQuery);
     $checkStmt->bind_param("i", $invoice_id);
@@ -1013,7 +1013,21 @@ if (isset($_POST['action']) && $_POST['action'] === "completeInvoice") {
             if (!empty($clientAccountId)) {
                 sendNotification($db_connection, 'service', "Your Request #$requestId service is completed and invoice has been issued.", [$clientAccountId], 'requests');
             }
-            insertLog($db_connection, "Completed a service and issued an invoice / Record ID: $recordId", "Record");
+
+
+            // ✉️ Send email to client (even if no account)
+            $emailResult = sendRequestStatusEmail($db_connection, $clientRow['client_id'], $requestId, 'Invoice Issued');
+            $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+            $response['email_message'] = $emailResult['message'];
+
+            // 🧾 Log activity
+            $logMessage = "Completed a service and issued an invoice / Record ID: $recordId";
+            if ($emailResult['success']) {
+                $logMessage .= " (Email sent)";
+            } else {
+                $logMessage .= " (Email failed to send)";
+            }
+            insertLog($db_connection, $logMessage, "Record");
 
             // Optional: include result in response
             $response['notification'] = $notifResult ? "Sent successfully" : "Failed to send";
@@ -1116,10 +1130,11 @@ if (isset($_POST['action']) && $_POST['action'] === "completePaid") {
         insertLog($db_connection, "Completed a service and marked invoice as paid / Record ID: $recordId", "Record");
 
 
-        // 🧩 Separate: Notify Client
+        // Separate: Notify Client
         $clientAccountId = null;
+        $clientId = null;
         $getClientQuery = "
-            SELECT c.account_id, r.request_id 
+            SELECT c.client_id, c.account_id, r.request_id 
             FROM recordstbl rec
             JOIN requeststbl r ON rec.request_id = r.request_id
             JOIN clientstbl c ON r.client_id = c.client_id
@@ -1130,17 +1145,34 @@ if (isset($_POST['action']) && $_POST['action'] === "completePaid") {
             $getClientStmt->execute();
             $clientRes = $getClientStmt->get_result();
             if ($clientRes && $clientRow = $clientRes->fetch_assoc()) {
+                $clientId = intval($clientRow['client_id']); // ✅ Add this
                 $clientAccountId = intval($clientRow['account_id']);
                 $requestId = intval($clientRow['request_id']);
                 $response['client_account_id'] = $clientAccountId;
+                $response['client_id'] = $clientId;
             }
             $getClientStmt->close();
         }
+
 
         // Send notification only if account_id exists
         if (!empty($clientAccountId)) {
             sendNotification($db_connection, 'service', "Your Request #$requestId invoice has been marked Paid!", [$clientAccountId], 'requests');
         }
+
+
+        $emailResult = sendRequestStatusEmail($db_connection, $clientId, $requestId, 'Completed');
+        $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+        $response['email_message'] = $emailResult['message'];
+
+        // 🧾 Log activity with email result
+        $logMessage = "Request/Record Completed and marked invoice as paid / Record ID: $recordId";
+        if ($emailResult['success']) {
+            $logMessage .= " (Email sent)";
+        } else {
+            $logMessage .= " (Email failed to send)";
+        }
+        insertLog($db_connection, $logMessage, "Record");
 
         $response['success'] = true;
     } else {

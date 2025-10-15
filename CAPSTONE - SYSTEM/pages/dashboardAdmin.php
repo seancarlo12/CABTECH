@@ -170,15 +170,15 @@ if ($resRequestsOverview) {
         if (dashboardStats.invoices) {
             // Grand total
             document.querySelector(".grand-total").textContent =
-                "₱ " + parseFloat(dashboardStats.invoices.grand_total).toLocaleString();
+                "₱ " + parseFloat(dashboardStats.invoices.grand_total).toFixed(2).toLocaleString();
 
             // Items total
             document.querySelector(".items-total").textContent =
-                "Items: ₱ " + parseFloat(dashboardStats.invoices.items_total).toLocaleString();
+                "Items: ₱ " + parseFloat(dashboardStats.invoices.items_total).toFixed(2).toLocaleString();
 
             // Services total
             document.querySelector(".services-total").textContent =
-                "Services: ₱ " + parseFloat(dashboardStats.invoices.services_total).toLocaleString();
+                "Services: ₱ " + parseFloat(dashboardStats.invoices.services_total).toFixed(2).toLocaleString();
         }
 
         // ✅ Insert quick stats

@@ -1594,6 +1594,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 cancelButtonText: 'Back',
             }).then((result) => {
                 if (result.isConfirmed) {
+
+
+                    // Show loading alert
+                    Swal.fire({
+                        iconHtml: '<i class="bx bx-loader-circle"></i>',
+                        title: 'Processing...',
+                        text: 'Processing invoice issuance and informing client...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+
                     $.ajax({
                         url: "handlers/serviceRecords-handler.php",
                         method: "POST",
@@ -1712,6 +1726,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }).then((result) => {
                 if (result.isConfirmed) {
                     let invoiceId = service_invoice.invoice_id;
+
+
+                    // Show loading alert
+                    Swal.fire({
+                        iconHtml: '<i class="bx bx-loader-circle"></i>',
+                        title: 'Processing...',
+                        text: 'Finalizing invoice and updating service record...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
 
                     $.ajax({
                         url: "handlers/serviceRecords-handler.php",
