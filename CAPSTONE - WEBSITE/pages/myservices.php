@@ -17,9 +17,7 @@ include_once '../includes/headNav.php';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CabTech Auto Services - My Services</title>
-    <link rel="stylesheet" href="../style/servicePage.css">
-    <!-- Make sure Bootstrap + jQuery are loaded in your includes/header or headNav.
-         If not, include them here. -->
+    <link rel="stylesheet" href="../style/myservices.css">
 </head>
 
 <body>
@@ -151,104 +149,145 @@ include_once '../includes/headNav.php';
                         default:
                             $badgeClass = 'bg-secondary';
                     }
+
+                    $allStatuses = ['Pending', 'Approved', 'In Progress', 'Completed'];
                 ?>
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <strong>Request #<?= htmlspecialchars($rid) ?></strong>
-                            <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($status) ?></span>
+                    <div id="ongoing-style" class="card mb-4 shadow-sm ">
+                        <div class="ong-head">
+                            <?php foreach ($allStatuses as $index => $s):
+                                $sLower = strtolower($s);
+                                $currLower = strtolower($status);
+
+                                // Determine color
+                                if ($sLower == $currLower) {
+                                    $color = '#D42A2A'; // current status (red)
+                                    $fontWeight = 'bold';
+                                } elseif (array_search($s, $allStatuses) < array_search(ucwords($status), $allStatuses)) {
+                                    $color = '#28a745'; // completed (green)
+                                } else {
+                                    $color = '#ccc'; // future (gray)
+                                    $fontWeight = 'normal';
+                                }
+                            ?>
+                                <div style="text-align:center; flex:1; position:relative;">
+                                    <!-- Circle -->
+                                    <div style="
+                                        width:17px; height:17px; 
+                                        background-color: <?= $color ?>; 
+                                        border-radius:50%; margin:0 auto; position:relative; z-index:1;">
+                                    </div>
+                                    <!-- Line to next circle -->
+                                    <?php if ($index < count($allStatuses) - 1): ?>
+                                        <div style="
+                                        position:absolute;
+                                        top: 8px; left:50%;
+                                        width:100%; height:2px;
+                                        background-color:#ccc; z-index:0;">
+                                        </div>
+                                    <?php endif; ?>
+                                    <!-- Label -->
+                                    <div class="line-label" style="
+                                        font-weight: <?= $fontWeight ?> !important;"><?= $s ?></div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
+
+
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <p><strong>Vehicle:</strong><br><?= htmlspecialchars(($req['plate_number'] ? "{$req['plate_number']} — " : '') . trim(($req['make'] ?? '') . ' ' . ($req['model'] ?? ''))) ?></p>
+                            <div class="req-details row mb-3">
+                                <div class="col-md-2">
+                                    <p>Request ID:<br><b><?= htmlspecialchars($rid) ?></b></p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p><strong>Request Type:</strong><br><?= htmlspecialchars($req['request_type'] ?? 'N/A') ?></p>
+                                    <p>Vehicle:<br><b><?= htmlspecialchars(($req['plate_number'] ? "{$req['plate_number']} — " : '') . trim(($req['make'] ?? '') . ' ' . ($req['model'] ?? ''))) ?></b></p>
                                 </div>
-                                <div class="col-md-4">
-                                    <p><strong>Appointment Date:</strong><br><?= htmlspecialchars($displayDate) ?></p>
+                                <div class="col-md-3">
+                                    <p>Appointment Date:<br><b><?= htmlspecialchars($displayDate) ?></b></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>Request Type:<br><b><?= htmlspecialchars($req['request_type'] ?? 'N/A') ?></b></p>
                                 </div>
                             </div>
 
 
-                            <div class="d-flex align-items-center mt-3">
-                                <h6 class="mb-0 me-3">Requested Services:</h6>
+                            <div class="req-services">
+                                <h6 class="req-services-head">Requested Services:</h6>
                                 <?php if (strtolower($req['status']) === 'pending'): ?>
-                                    <button class="btn btn-sm btn-success request-another-service"
+                                    <button class="btn btn-sm request-another-service"
                                         data-request-id="<?= htmlspecialchars($req['request_id'] ?? '') ?>">
-                                        + Request Another Service
+                                        <i class="fa-solid fa-plus"></i> Request Another Service
                                     </button>
                                 <?php endif; ?>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered request-table mb-0">
-                                    <thead class="table-light">
+                            <div id="table-box">
+                            <table class="table request-table service-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Service Name</th>
+                                        <th>Estimated Labor Cost</th>
+                                        <th>Your Comments/Description</th>
+                                        <?php if (strtolower($req['status']) === 'pending'): ?>
+                                            <th>Action</th>
+                                        <?php endif; ?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $pairs = array_filter(array_map('trim', explode('%%', $req['service_comment_pairs'] ?? '')));
+                                    $i = 1;
+                                    $totalEstimated = 0;
+
+                                    foreach ($pairs as $pair):
+                                        // Split into 4 parts: [service, comment, rst_id, labor_cost]
+                                        $parts = explode('||', $pair, 4);
+                                        $parts = array_pad($parts, 4, '');
+                                        [$svc, $comment, $rst_id, $labor_cost] = array_map('trim', $parts);
+
+                                        $numericCost = is_numeric($labor_cost) ? (float)$labor_cost : 0;
+                                        $totalEstimated += $numericCost;
+
+                                        $formattedCost = '₱' . number_format($numericCost, 2);
+                                    ?>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Service Name</th>
-                                            <th>Estimated Labor Cost</th>
-                                            <th>Your Comments/Description</th>
+                                            <td><?= $i++ ?></td>
+                                            <td><?= htmlspecialchars($svc ?: '') ?></td>
+                                            <td><?= $formattedCost ?></td>
+                                            <td class="service-comment"><?= htmlspecialchars($comment ?: '') ?></td>
+
                                             <?php if (strtolower($req['status']) === 'pending'): ?>
-                                                <th>Action</th>
-                                            <?php endif; ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $pairs = array_filter(array_map('trim', explode('%%', $req['service_comment_pairs'] ?? '')));
-                                        $i = 1;
-                                        $totalEstimated = 0;
-
-                                        foreach ($pairs as $pair):
-                                            // Split into 4 parts: [service, comment, rst_id, labor_cost]
-                                            $parts = explode('||', $pair, 4);
-                                            $parts = array_pad($parts, 4, '');
-                                            [$svc, $comment, $rst_id, $labor_cost] = array_map('trim', $parts);
-
-                                            $numericCost = is_numeric($labor_cost) ? (float)$labor_cost : 0;
-                                            $totalEstimated += $numericCost;
-
-                                            $formattedCost = '₱' . number_format($numericCost, 2);
-                                        ?>
-                                            <tr>
-                                                <td><?= $i++ ?></td>
-                                                <td><?= htmlspecialchars($svc ?: '') ?></td>
-                                                <td><?= $formattedCost ?></td>
-                                                <td class="service-comment"><?= htmlspecialchars($comment ?: '// No Comments Provided') ?></td>
-
-                                                <?php if (strtolower($req['status']) === 'pending'): ?>
-                                                    <td>
+                                                <td>
+                                                    <div class="action-btn-box">
                                                         <button
                                                             class="btn btn-sm btn-outline-primary edit-comment"
                                                             data-rst-id="<?= htmlspecialchars($rst_id ?: '') ?>">
-                                                            Edit Comment
+                                                            <i class="fa-solid fa-comment"></i>
                                                         </button>
                                                         <button
                                                             class="btn btn-sm btn-danger remove-service"
                                                             data-rst-id="<?= htmlspecialchars($rst_id ?: '') ?>">
-                                                            Remove
+                                                            <i class="fa-solid fa-trash"></i>
                                                         </button>
-                                                    </td>
-                                                <?php endif; ?>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                    <tfoot class="table-light">
-                                        <tr>
-                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="">
-                                                <strong>Total Estimated Labor Cost:</strong>
-                                                <span class="text-primary">₱<?= number_format($totalEstimated, 2) ?></span>
-                                            </td>
+                                                    </div>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
-                                        <tr>
-                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="text-muted small fst-italic">
-                                                <em>Note:</em> The total shown above is an <strong>estimated cost</strong> and may vary based on products and parts used.
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-
-                            </div>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="">
+                                            <b>Total Estimated Labor Cost:</b>
+                                            <span class="text-primary">₱<?= number_format($totalEstimated, 2) ?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="text-muted small fst-italic">
+                                            <em>Note:</em> The total shown above is an <b>estimated cost</b> and may vary based on products and parts used.
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table></div>
 
                             <div class="mt-3 d-flex gap-2">
                                 <button type="button"
@@ -267,6 +306,7 @@ include_once '../includes/headNav.php';
                 <?php endforeach; ?>
             <?php endif; ?>
 
+            <hr style="margin: 50px auto; width: 50%;">
 
             <!-- HISTORY -->
             <h4 class="mt-4">Previous Services / History</h4>
@@ -303,27 +343,27 @@ include_once '../includes/headNav.php';
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="<?= htmlspecialchars($headingId) ?>">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?= htmlspecialchars($collapseId) ?>" aria-expanded="false" aria-controls="<?= htmlspecialchars($collapseId) ?>">
-                                    <strong>Request #<?= htmlspecialchars($rid) ?></strong> — <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($status) ?></span>
+                                    <b>Request #<?= htmlspecialchars($rid) ?></b> — <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($status) ?></span>
                                 </button>
                             </h2>
                             <div id="<?= htmlspecialchars($collapseId) ?>" class="accordion-collapse collapse" aria-labelledby="<?= htmlspecialchars($headingId) ?>" data-bs-parent="#historyAccordion">
                                 <div class="accordion-body">
                                     <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <p><strong>Vehicle:</strong><br><?= htmlspecialchars(($req['plate_number'] ? "{$req['plate_number']} — " : '') . trim(($req['make'] ?? '') . ' ' . ($req['model'] ?? ''))) ?></p>
+                                            <p><b>Vehicle:</b><br><?= htmlspecialchars(($req['plate_number'] ? "{$req['plate_number']} — " : '') . trim(($req['make'] ?? '') . ' ' . ($req['model'] ?? ''))) ?></p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p><strong>Final Status:</strong><br><?= htmlspecialchars($req['status']) ?></p>
+                                            <p><b>Final Status:</b><br><?= htmlspecialchars($req['status']) ?></p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p><strong>Appointment Date:</strong><br><?= htmlspecialchars($displayDate) ?></p>
+                                            <p><b>Appointment Date:</b><br><?= htmlspecialchars($displayDate) ?></p>
                                         </div>
                                     </div>
 
                                     <h6 class="mt-3">Services Requested:</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-bordered request-table">
-                                            <thead class="table-light">
+                                    <div class="table-box">
+                                        <table class="service-table request-table">
+                                            <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Service Name</th>
@@ -341,8 +381,8 @@ include_once '../includes/headNav.php';
                                                 ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
-                                                        <td><?= htmlspecialchars($svc ?: '// No Service Name') ?></td>
-                                                        <td><?= htmlspecialchars($comment ?: '// No Comments Provided') ?></td>
+                                                        <td><?= htmlspecialchars($svc ?: '') ?></td>
+                                                        <td><?= htmlspecialchars($comment ?: '') ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -539,8 +579,12 @@ include_once '../includes/headNav.php';
 
             // Replace text with input
             $commentCell.html(`
-                <div class="d-flex align-items-center gap-2">
-                    <input type="text" class="form-control form-control-sm new-comment" value="${currentComment}">
+                <div class="d-flex align-items-start gap-2">
+                    <textarea 
+                        class="form-control new-comment" 
+                        rows="5""
+                        style="max-height: 200px;"
+                    >${currentComment}</textarea>
                     <button class="btn btn-sm btn-success save-comment" data-rst-id="${rst_id}">Save</button>
                     <button class="btn btn-sm btn-secondary cancel-comment">Cancel</button>
                 </div>

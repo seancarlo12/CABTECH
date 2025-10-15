@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lunasima:wght@400;700&display=swap');
 
 :root {
-    --bs-primary-color: #e32929;
+    --bs-primary-color: #D42A2A;
     --bs-dark-color: #323232;
     --bs-light-gray: #f8f9fa;
     --bs-body-font: 'Outfit', sans-serif;
@@ -15,7 +15,12 @@
     color: var(--bs-primary-color) !important;
     font-weight: bolder;
 }
-
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
 
 body {
     font-family: var(--bs-body-font);
@@ -33,7 +38,7 @@ body {
     font-weight: bold;
   }
   .step.active {
-    background: #dc3545;
+    background: #D42A2A;
   }
   .line {
     flex: 1;
@@ -102,8 +107,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px auto;
-    gap: 500px;
+    gap: 300px;
+    margin: 0 auto;
 }
 .working-process {
     text-align: center;
@@ -305,9 +310,6 @@ header .open-signup:hover{
 
 
 
-.request-table{
-    max-width: 800px;
-}
 
 #invoiceTable {
     width: 800px;

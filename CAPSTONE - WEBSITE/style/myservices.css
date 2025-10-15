@@ -1,0 +1,107 @@
+.ong-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    gap: 10px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #D42A2A;
+}
+
+.line-label {
+    margin-top: 4px;
+    font-size: 13px;
+    /* font-weight: bolder; */
+    text-transform: uppercase;
+    color: #333;
+}
+#ongoing-style{
+    padding: 20px;
+}
+
+
+#ongoing-style .req-details{
+    background-color: rgba(211, 211, 211, 0.4);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#ongoing-style .req-services{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#ongoing-style .req-services-head{
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 4px;
+}
+#ongoing-style .req-services button{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    border:1px solid #D42A2A;
+    text-transform: uppercase;
+    transition: 200ms;
+}
+#ongoing-style .req-services button:hover{
+    background-color: #D42A2A;
+    color: white;
+    font-weight: bold;
+}
+
+/* Table styling */
+.service-table {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin-bottom: 1rem;
+}
+
+.service-table thead tr th{
+    text-transform: uppercase !important;
+    font-weight: bold;
+    background-color: rgba(17, 16, 29, 0.6);
+    color: white;
+}
+.service-table thead th, .service-table td {
+    padding: 8px 12px;
+    text-align: left;
+}
+.service-table tr{
+    border-bottom: 1px solid lightgray;
+}
+.service-table{
+    overflow-x: scroll;
+}
+
+.service-table th {
+    font-weight: bold;
+}
+
+.service-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.service-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.service-comment {
+    max-width: 250px; /* limit comment width */
+    word-wrap: break-word;
+}
+
+.btn.edit-comment {
+    margin-right: 5px;
+}
+
+.btn.remove-service {
+    margin-left: 5px;
+}
+
+.action-btn-box{
+    display: flex;
+}

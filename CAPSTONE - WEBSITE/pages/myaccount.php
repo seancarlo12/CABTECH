@@ -69,8 +69,9 @@ $stmt3->close();
                 <h2>
                     Personal Information
                     <button class="edit-btn" id="editProfileBtn">Edit Profile</button>
-                    <button class="save-btn" id="saveProfileBtn" style="display:none;">Save</button>
-                    <button class="cancel-btn" id="cancelProfileBtn" style="display:none;">Cancel</button>
+                    <button class="btn btn-primary save-btn" id="saveProfileBtn" style="display:none;">Save</button>
+                    <button class="btn btn-secondary cancel-btn" id="cancelProfileBtn" style="display:none;">Cancel</button>
+
                 </h2>
 
                 <div class="form-row">
@@ -143,9 +144,9 @@ $stmt3->close();
                     </div>
                 </div>
 
-                <div class="action-buttons" style="display:none;">
-                    <button id="saveAccountBtn">Save Changes</button>
-                    <button id="cancelAccountBtn">Cancel</button>
+                <div class="action-buttons" style="display:none; margin-top: 10px;">
+                    <button id="saveAccountBtn" class="btn btn-primary save-btn">Save Changes</button>
+                    <button id="cancelAccountBtn" class="btn btn-secondary cancel-btn">Cancel</button>
                 </div>
 
                 <div class="created-date">
