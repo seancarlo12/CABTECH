@@ -118,6 +118,7 @@ $row = $r->fetch_assoc();
 $overlapCount = intval($row['overlap_count'] ?? 0);
 $stmt->close();
 
+
 // --- Suggest alternative if needed ---
 if ($overlapCount >= $MAX_CONCURRENT) {
     $interval = new DateInterval('PT20M'); // 20-minute increments

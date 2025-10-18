@@ -414,11 +414,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'validateSchedule' && isset(
             JOIN requested_servicestbl rs ON r.request_id = rs.request_id
             JOIN servicestbl s ON rs.service_id = s.service_id
             WHERE LOWER(r.status) IN ('pending','approved','in progress')
-              AND COALESCE(r.sched_dt, r.request_dt) IS NOT NULL
+                AND COALESCE(r.sched_dt, r.request_dt) IS NOT NULL
             GROUP BY r.request_id
         ) AS sub
         WHERE sub.start_dt < ? 
-          AND sub.end_dt   > ?
+            AND sub.end_dt   > ?
     ";
 
     $stmt = $db_connection->prepare($overlapSql);
@@ -453,11 +453,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'validateSchedule' && isset(
                 JOIN requested_servicestbl rs ON r.request_id = rs.request_id
                 JOIN servicestbl s ON rs.service_id = s.service_id
                 WHERE LOWER(r.status) IN ('pending','approved','in progress')
-                  AND COALESCE(r.sched_dt, r.request_dt) IS NOT NULL
+                    AND COALESCE(r.sched_dt, r.request_dt) IS NOT NULL
                 GROUP BY r.request_id
             ) AS sub
             WHERE sub.start_dt < ? 
-              AND sub.end_dt   > ?
+                AND sub.end_dt   > ?
             ORDER BY sub.start_dt
         ";
         $s2 = $db_connection->prepare($listSql);
@@ -476,16 +476,17 @@ if (isset($_POST['action']) && $_POST['action'] === 'validateSchedule' && isset(
         }
     }
 
+
     // --- If overlap count meets or exceeds allowed concurrency, try to suggest alternative times ---
     if ($overlapCount >= $MAX_CONCURRENT) {
+
+        $shopOpen = '08:30:00';
+        $shopClose = '17:00:00';
+        
         $interval = new DateInterval('PT20M'); // 20 minute increments
         $candidate = clone $start;
         $maxTries = 10;
         $found = false;
-
-        // shop hours (change as needed)
-        $shopOpen = '07:00:00';
-        $shopClose = '18:00:00';
 
         for ($i = 1; $i <= $maxTries; $i++) {
             $candidate->add($interval);
@@ -582,8 +583,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'submit_request') {
 
             if (isset($clientData['detailsChanged']) && $clientData['detailsChanged']) {
                 $query = "UPDATE clientstbl 
-                          SET contact_number = ?, email = ?, address = ?
-                          WHERE client_id = ?";
+                            SET contact_number = ?, email = ?, address = ?
+                            WHERE client_id = ?";
                 $stmt = $db_connection->prepare($query);
                 $stmt->bind_param(
                     "sssi",
