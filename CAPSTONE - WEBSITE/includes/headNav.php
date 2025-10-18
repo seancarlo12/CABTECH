@@ -402,7 +402,7 @@ if ($isLinked && $client_id > 0) {
                                 </select>
                                 <input type="text" class="form-control mt-2 d-none" id="fuel_type_other" placeholder="Specify fuel type">
                             </div>
-                            <button type="button" class="btn btn-link" id="backToVehiclesBtn">← Back to Vehicle List</button>
+                            <button type="button" class="btn btn-link" id="backToVehiclesBtn">← Your Vehicles List</button>
                         </div>
                     </div>
 
@@ -1182,12 +1182,20 @@ if ($isLinked && $client_id > 0) {
 
 
         flatpickr("#schedule_dt", {
-            enableTime: true, // allow time selection
+            enableTime: true,
+            time_24hr: false,
             dateFormat: "Y-m-d H:i", // format for submission
-            // minDate: "today", // prevent past dates
-            time_24hr: true, // use 24-hour format
-            defaultHour: 8, // optional default start time
-            defaultMinute: 0
+            minDate: "today",
+            minTime: "08:30",
+            maxTime: "16:00", // 8:30am to 4:00pm lang pwede mag request appointment
+            allowInput: false,
+            inline: true,
+            disable: [
+                function (date) {
+                    // Disable Sundays and Saturdays : para sa dayoffs, kung meron
+                    return date.getDay() === 0 || date.getDay() === 6;
+                }
+            ]
         });
 
 

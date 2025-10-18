@@ -140,8 +140,8 @@ const requestSched_fp = flatpickr("#requestSched", {
     time_24hr: false,
     dateFormat: "l, F j, Y at h:i K",
     minDate: "today",
-    minTime: "07:00",
-    maxTime: "18:00", // 7am to 6pm lang yung pasok sa shop
+    minTime: "08:30",
+    maxTime: "16:00", // 8:30am to 4:00pm lang pwede mag request appointment
     allowInput: false,
     disable: [
         function (date) {
@@ -185,9 +185,11 @@ function enableScheduleInput() {
 // On radio change
 $('input[name="requestType"]').on('change', function () {
     const type = $(this).val();
-    const today = new Date();
-    const day = today.getDay(); // 0 = Sun, 6 = Sat
-    const hour = today.getHours();
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sun, 6 = Sat
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
 
     selectedRequestType = type;
     selectedRequestStatus = (type === 'walk-in') ? 'Approved' : 'Pending';
@@ -196,12 +198,16 @@ $('input[name="requestType"]').on('change', function () {
     $('#finalRequestStatus').val(selectedRequestStatus);
 
     if (type === 'walk-in') {
-        if (day === 0 || day === 6 || hour < 7 || hour >= 18) {
+        // Allowed time: Monday–Friday, 8:00 AM to 5:00 PM
+        const openTime = 8 * 60;    // 8:00 AM
+        const closeTime = 16 * 60 ; // 5:00 PM
+
+        if (day === 0 || day === 6 || totalMinutes < openTime || totalMinutes > closeTime) {
             $('#addServiceRequest-5').modal('hide');
             Swal.fire({
                 iconHtml: '<i class="bx bx-error-circle"></i>',
                 title: 'Walk-in Not Allowed',
-                text: 'Walk-in requests are only allowed on weekdays between 7:00 AM and 6:00 PM.',
+                text: 'Walk-in requests are only allowed on weekdays and between 8:00 AM and 5:00 PM.',
             }).then(() => {
                 $('#addServiceRequest-5').modal('show');
             });
