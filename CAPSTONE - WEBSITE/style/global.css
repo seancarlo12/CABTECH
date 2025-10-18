@@ -107,7 +107,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 300px;
+    gap: 25%;
     margin: 0 auto;
 }
 .working-process {

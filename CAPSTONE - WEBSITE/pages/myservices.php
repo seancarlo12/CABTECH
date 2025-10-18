@@ -289,7 +289,9 @@ include_once '../includes/headNav.php';
                                     </tr>
                                     <tr>
                                         <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="text-muted small fst-italic">
-                                            <em>Note:</em> The total shown above is an <b>estimated cost</b> and may vary based on products and parts used.
+                                            <em>Note:</em> 
+                                            The total shown above is an <b><u>estimated cost</u></b> and may vary depending on the specific
+                                            products, <br> parts used, vehicle make, model, and current condition.
                                         </td>
                                     </tr>
                                 </tfoot>
