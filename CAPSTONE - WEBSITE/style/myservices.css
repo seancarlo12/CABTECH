@@ -105,3 +105,41 @@
 .action-btn-box{
     display: flex;
 }
+
+
+/* compact CSS to keep alignment & connectors consistent */
+.ong-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    position:relative;
+    gap:0;
+}
+.ong-step {
+    flex:1;
+    text-align:center;
+    position:relative;
+    padding:6px 4px;
+}
+.ong-step .circle {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+}
+.ong-step .connector {
+    position:absolute;
+    top:50%;
+    left:50%;
+    height:3px;
+    width:100%;
+    transform:translateY(-50%);
+    z-index:1;
+}
+.line-label {
+    margin-top:6px;
+    font-size:0.9rem;
+}

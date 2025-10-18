@@ -153,44 +153,50 @@ include_once '../includes/headNav.php';
                     $allStatuses = ['Pending', 'Approved', 'In Progress', 'Completed'];
                 ?>
                     <div id="ongoing-style" class="card mb-4 shadow-sm ">
-                        <div class="ong-head">
-                            <?php foreach ($allStatuses as $index => $s):
-                                $sLower = strtolower($s);
-                                $currLower = strtolower($status);
+                    <div class="ong-head">
+    <?php
+    // prepare current index
+    $currIndex = array_search(ucwords($status), $allStatuses);
+    if ($currIndex === false) $currIndex = -1; // unknown status fallback
 
-                                // Determine color
-                                if ($sLower == $currLower) {
-                                    $color = '#D42A2A'; // current status (red)
-                                    $fontWeight = 'bold';
-                                } elseif (array_search($s, $allStatuses) < array_search(ucwords($status), $allStatuses)) {
-                                    $color = '#28a745'; // completed (green)
-                                } else {
-                                    $color = '#ccc'; // future (gray)
-                                    $fontWeight = 'normal';
-                                }
-                            ?>
-                                <div style="text-align:center; flex:1; position:relative;">
-                                    <!-- Circle -->
-                                    <div style="
-                                        width:17px; height:17px; 
-                                        background-color: <?= $color ?>; 
-                                        border-radius:50%; margin:0 auto; position:relative; z-index:1;">
-                                    </div>
-                                    <!-- Line to next circle -->
-                                    <?php if ($index < count($allStatuses) - 1): ?>
-                                        <div style="
-                                        position:absolute;
-                                        top: 8px; left:50%;
-                                        width:100%; height:2px;
-                                        background-color:#ccc; z-index:0;">
-                                        </div>
-                                    <?php endif; ?>
-                                    <!-- Label -->
-                                    <div class="line-label" style="
-                                        font-weight: <?= $fontWeight ?> !important;"><?= $s ?></div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
+    foreach ($allStatuses as $index => $s):
+        $sLower = strtolower($s);
+
+        // determine visual state by comparing indexes
+        if ($index == $currIndex) {
+            $color = '#D42A2A'; // current (red)
+            $fontWeight = 'bold';
+        } elseif ($index < $currIndex) {
+            $color = '#28a745'; // completed (green)
+            $fontWeight = 'normal';
+        } else {
+            $color = '#ccc'; // future (gray)
+            $fontWeight = 'normal';
+        }
+    ?>
+        <div class="ong-step">
+            <!-- Circle or Check -->
+            <?php if ($sLower === 'completed'): ?>
+                <!-- show check icon (color depends on whether it's completed/current/future) -->
+                <div style="position:relative; z-index:2; font-size:20px; line-height:1;">
+                    <i class="fa-solid fa-check-circle" style="color: <?= $color ?>;"></i>
+                </div>
+            <?php else: ?>
+                <div class="circle" style="background-color: <?= $color ?>;"></div>
+            <?php endif; ?>
+
+            <!-- Connector to next step (color green if this step is completed) -->
+            <?php if ($index < count($allStatuses) - 1): ?>
+                <div class="connector" style="background-color: <?= ($index < $currIndex ? '#28a745' : '#ccc') ?>;"></div>
+            <?php endif; ?>
+
+            <!-- Label -->
+            <div class="line-label" style="font-weight: <?= $fontWeight ?> !important;">
+                <?= htmlspecialchars($s) ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
 
 
                         <div class="card-body">
@@ -1168,7 +1174,7 @@ include_once '../includes/headNav.php';
             // Confirm with SweetAlert
             Swal.fire({
                 title: 'Cancel Request?',
-                text: 'This action may not be reversible. Do you wish to continue?',
+                text: 'This action cannot be undone. Do you wish to continue?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, cancel it',
