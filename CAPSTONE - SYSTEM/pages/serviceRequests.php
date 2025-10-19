@@ -1879,6 +1879,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                 setTimeout(() => {
                                     tr.find('.dt-control').click();
                                 }, 150);
+                                
+                                // ✅ Remove the row from the table entirely
+                                row.remove().draw(false);
 
 
                                 // console.log('Assignment confirmed:', AssignedMechanics);

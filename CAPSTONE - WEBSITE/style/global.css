@@ -15,11 +15,21 @@
     color: var(--bs-primary-color) !important;
     font-weight: bolder;
 }
-.navbar{
+
+.navbar {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px;
+}
+
+.navbar-nav {
+    flex-wrap: nowrap;
+}
+
+.nav-link,
+.schedulebtn {
+    white-space: nowrap;
 }
 
 body {
@@ -36,15 +46,18 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-  }
-  .step.active {
+}
+
+.step.active {
     background: #D42A2A;
-  }
-  .line {
+}
+
+.line {
     flex: 1;
     height: 2px;
     background: #ccc;
-  }
+}
+
 /* Header style */
 
 header {
@@ -54,7 +67,8 @@ header {
 .text-primary {
     color: var(--bs-primary-color) !important;
 }
-.schedulebtn{
+
+.schedulebtn {
     background-color: var(--bs-primary-color);
     padding: 10px 20px;
     border-radius: 10px;
@@ -65,12 +79,14 @@ header {
     transition: 100ms;
 }
 
-.schedulebtn:hover{
+.schedulebtn:hover {
     opacity: 80%;
 }
-.schedulebtn:active{
+
+.schedulebtn:active {
     transform: scale(0.98);
 }
+
 /* Hero Section */
 .bg-hero-image {
     background-image: url('../assets/img/bg.png');
@@ -103,13 +119,14 @@ header {
 
 /* Working Process */
 
-.containerHead{
+.containerHead {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 25%;
     margin: 0 auto;
 }
+
 .working-process {
     text-align: center;
     margin-bottom: 20px;
@@ -222,26 +239,28 @@ header {
     font-size: .8rem;
 }
 
-.box-shadow-div{
+.box-shadow-div {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 5px;
 }
-section h6{
+
+section h6 {
     color: var(--bs-primary-color) !important;
     font-weight: 500;
 
 }
 
-.button-format{
+.button-format {
     background-color: var(--bs-primary-color) !important;
     border: none !important;
     outline: none !important;
 }
 
-.button-format:hover{
+.button-format:hover {
     opacity: 80%;
 }
-.button-format:active{
+
+.button-format:active {
     transform: scale(0.98);
 }
 
@@ -252,40 +271,41 @@ section h6{
     max-height: 600px;
 }
 
-#progressSteps{
+#progressSteps {
     margin: 10px 10%;
 }
 
-.step span.text-top{
+.step span.text-top {
     position: absolute;
     color: black;
     top: 2px;
     font-size: 12px;
 }
 
-#servicesList{
-    max-height: 500px !important; 
+#servicesList {
+    max-height: 500px !important;
     overflow-y: auto !important;
 }
 
-.summary-section h6{
+.summary-section h6 {
     text-transform: uppercase;
 }
 
 .step.completed {
     cursor: pointer;
-    background-color: #d4edda; /* greenish */
+    background-color: #d4edda;
+    /* greenish */
 }
 
-.servicesTable tbody tr{
+.servicesTable tbody tr {
     height: 100px;
 }
 
-.service-comment{
+.service-comment {
     height: 60px;
 }
 
-#profileDropdown{
+#profileDropdown {
 
     outline: 1px solid black;
     border-radius: 10px;
@@ -293,15 +313,15 @@ section h6{
     transition: 200ms;
 }
 
-header .open-signup{
+header .open-signup {
     border: 1px solid var(--bs-primary-color) !important;
     border-radius: 10px;
     padding: 8px 20px !important;
 }
 
-header .open-signup:hover{
+header .open-signup:hover {
     background-color: var(--bs-primary-color) !important;
-    color:  white !important;
+    color: white !important;
 }
 
 
@@ -315,12 +335,12 @@ header .open-signup:hover{
     width: 800px;
 }
 
-#ServiceInvoiceModal .modal-body{
+#ServiceInvoiceModal .modal-body {
     display: flex;
 }
 
 
-#left-details{
+#left-details {
     min-width: 280px;
     max-width: 280px;
     border-radius: 2px;
@@ -332,10 +352,11 @@ header .open-signup:hover{
     margin-right: 10px;
 }
 
-#left-details p{
+#left-details p {
     margin: 0 !important;
 }
-#left-details div b.head-details{
+
+#left-details div b.head-details {
     display: block;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -364,10 +385,12 @@ header .open-signup:hover{
 #invoiceTable td {
     padding: 10px;
 }
+
 #invoiceTable tfoot tr {
     position: sticky;
     bottom: 0;
-    background: #fff;       /* match table bg */
+    background: #fff;
+    /* match table bg */
     z-index: 10;
 }
 
@@ -375,46 +398,51 @@ header .open-signup:hover{
 #right-invoicebox {
     height: 700px;
     max-height: 700px;
-    overflow-y: auto;       /* vertical scroll if content exceeds */
+    overflow-y: auto;
+    /* vertical scroll if content exceeds */
     overflow-x: hidden;
-    border: 1px solid #ddd; /* optional border */
+    border: 1px solid #ddd;
+    /* optional border */
 }
 
-.inv-marleft{
+.inv-marleft {
     display: block;
     margin-left: 30px;
 }
 
-.inv-subtotal{
+.inv-subtotal {
     text-align: right;
     /* background-color: rgba(233, 233, 233, 0.8); */
 }
 
-.inv-service-head{
+.inv-service-head {
     background-color: rgba(233, 233, 233, 0.8);
 }
 
-.inv-grand-txt{
+.inv-grand-txt {
     text-align: right;
     text-transform: uppercase;
     font-size: 20px;
     background-color: rgba(17, 16, 29, 0.9);
     color: white;
 }
-.inv-grand-val{
+
+.inv-grand-val {
     font-size: 20px;
     background-color: rgba(17, 16, 29, 0.9);
     color: white;
 }
 
 
-#notif-list{
+#notif-list {
     max-height: 600px !important;
     overflow: auto;
 }
-.notif-message{
+
+.notif-message {
 
     max-width: 500px !important;
     min-width: 500px !important;
-    white-space: wrap;     /* ✅ preserves newlines */
+    white-space: wrap;
+    /* ✅ preserves newlines */
 }

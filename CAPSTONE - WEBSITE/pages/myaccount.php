@@ -910,6 +910,8 @@ $stmt3->close();
                             $('.form-group input').each(function() {
                                 originalData[this.id] = $(this).val();
                             });
+
+                            location.reload();
                         } else {
                             Swal.fire({
                                 icon: 'error',

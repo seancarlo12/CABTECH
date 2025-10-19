@@ -266,6 +266,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     'success' => true,
                     'message' => 'Request has been successfully cancelled.'
                 ]);
+                
+                $adminMessage = "Client cancelled cancelled their service request. [Request ID: $requestId]";
+                sendNotification($db_connection, 'service', $adminMessage, ['Admin'], 'requests');
+
             } else {
                 echo json_encode([
                     'success' => false,

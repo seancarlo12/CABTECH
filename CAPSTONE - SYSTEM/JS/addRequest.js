@@ -365,6 +365,7 @@ $(document).on('click', '#addbtn', function () { // SHOW CLIENTS MODAL
 
 
 $(document).on('click', '#showVehiclesModal', function () { // CLIENTS MODAL / SHOW VEHICLES MODAL
+    
     const form = document.getElementById('clientFormModal');
 
     if (!form.checkValidity()) {
@@ -426,6 +427,12 @@ $(document).on('click', '#showVehiclesModal', function () { // CLIENTS MODAL / S
 
         // Save change status
         selectedClient.detailsChanged = mobileChanged || emailChanged || addressChanged;
+
+        // ✅ Update values so PHP receives the latest ones
+        selectedClient.contact_number = inputMobile;
+        selectedClient.email = inputEmail;
+        selectedClient.address = inputAddress;
+        
         $.ajax({
             url: 'handlers/serviceRequests-handler.php',
             method: 'POST',
@@ -439,6 +446,10 @@ $(document).on('click', '#showVehiclesModal', function () { // CLIENTS MODAL / S
                 const newVehiclesForClient = tempNewVehicles.filter(v => v.client_id == selectedClient.client_id);
 
                 clientsAllVehicles = [...response.vehicles, ...newVehiclesForClient];
+                
+                // ✅ Remove (filter out) unavailable vehicles
+                // clientsAllVehicles = clientsAllVehicles.filter(v => !v.is_unavailable);
+
                 renderVehicles(clientsAllVehicles);
 
                 $('#addServiceRequest-2').modal('show');
@@ -479,26 +490,26 @@ $(document).on('click', '#showVehiclesModal', function () { // CLIENTS MODAL / S
             iconHtml: '<i class="bx bx-user-circle"></i>',
             title: 'Previous Client Found',
             html: `A client with matching contact information already exists in the system. <br><br>
-        Name: <b>${match.first_name} ${match.last_name}</b><br>
-        Email: <b>${match.email}</b><br>
-        Number: <b>${match.contact_number}</b>`,
+                Name: <b>${match.first_name} ${match.last_name}</b><br>
+                Email: <b>${match.email}</b><br>
+                Number: <b>${match.contact_number}</b>`,
             showCancelButton: true,
             confirmButtonText: 'Use This Profile',
             cancelButtonText: 'Cancel',
         }).then((result) => {
             if (result.isConfirmed) {
 
-                if (match.is_unavailable) {
-                    Swal.fire({
-                        iconHtml: '<i class="bx bx-error-circle"></i>',
-                        title: 'Client Unavailable',
-                        text: 'This client currently has an ongoing service request and cannot be selected.',
-                        confirmButtonText: 'Back',
-                        allowOutsideClick: false
-                    }).then(() => {
-                        $('#addServiceRequest-1').modal('show');
-                    });
-                } else {
+                // if (match.is_unavailable) {
+                //     Swal.fire({
+                //         iconHtml: '<i class="bx bx-error-circle"></i>',
+                //         title: 'Client Unavailable',
+                //         text: 'This client currently has an ongoing service request and cannot be selected.',
+                //         confirmButtonText: 'Back',
+                //         allowOutsideClick: false
+                //     }).then(() => {
+                //         $('#addServiceRequest-1').modal('show');
+                //     });
+                // } else {
                     selectedClient = match;
                     selectedClient.detailsChanged = false;
 
@@ -540,7 +551,7 @@ $(document).on('click', '#showVehiclesModal', function () { // CLIENTS MODAL / S
                             console.error('AJAX error:', err);
                         }
                     });
-                }
+                // }
             } else {
                 // Show form again so user can fix or cancel
                 $('#addServiceRequest-1').modal('show');
@@ -979,6 +990,7 @@ function renderVehicles(vehicles) {
     // Create and insert vehicle cards
     vehicles.forEach(vehicle => {
         const isSelected = selectedVehicle && selectedVehicle.vehicle_id == vehicle.vehicle_id;
+        const isUnavailable = vehicle.is_unavailable === true || vehicle.is_unavailable === 1 || vehicle.is_unavailable === "true";
 
         const make = vehicle.make || 'N/A';
         const model = vehicle.model || 'N/A';
@@ -990,17 +1002,21 @@ function renderVehicles(vehicles) {
         const card = document.createElement('div');
         card.classList.add('vehicle-card');
         if (isSelected) card.classList.add('selected-vehicle');
+        if (isUnavailable) card.classList.add('vehicle-unavailable');
         card.setAttribute('data-id', vehicle.vehicle_id);
-        card.style.cursor = 'pointer';
+        card.style.cursor = isUnavailable ? 'not-allowed' : 'pointer';
+        card.style.opacity = isUnavailable ? '0.6' : '1.0';
 
         card.innerHTML = `
             <div class="vehicle-card-body">
                 <h6 class="vehicle-card-title">${make} ${model}</h6>
                 <strong class="vehicle-card-text">${plate}</strong>
                 <small class="vehicle-card-text">${color} &#8226; ${transmission} &#8226; ${fuel}</small>
+                ${isUnavailable ? `<div class="text-danger mt-1"><small><i>This vehicle is currently part of a pending or ongoing service request.</i></small></div>` : ''}
             </div>
         `;
 
+        if (!isUnavailable) {
         // Add click handler
         card.addEventListener('click', function () {
             selectedVehicleId = vehicle.vehicle_id;
@@ -1012,6 +1028,7 @@ function renderVehicles(vehicles) {
 
             this.classList.add('selected-vehicle');
         });
+    }
         container.appendChild(card);
     });
 }
@@ -1050,9 +1067,9 @@ function select2ForSelectClient() { // INITIALIZE SELECT2 FOR / SAVE SELECTED CL
     clientSelect.find('option:not(:first)').remove();
     console.log(allClients);
     allClients.forEach((client, index) => {
-        if (client.is_unavailable) return; // Skip if unavailable
+        // if (client.is_unavailable) return; // Skip if unavailable
         const fullName = `${client.first_name} ${client.last_name}`;
-        const option = new Option(`${fullName} (${client.email})`, client.client_id, false, false);
+        const option = new Option(`${fullName} (${client.email || "no email found"})`, client.client_id, false, false);
 
         clientSelect.append(option);
     });

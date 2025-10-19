@@ -296,10 +296,34 @@ if (isset($_POST['action']) && $_POST['action'] === 'getClientsVehicles') {
         $result = $stmt->get_result();
 
         $vehicles = [];
-        if ($result && $result->num_rows > 0) {
+ if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $vehicle_id = $row['vehicle_id'];
+
+                // ✅ Check if this vehicle is linked to an active/pending/in-progress request
+                $check = $db_connection->prepare("
+                    SELECT 1
+                    FROM requeststbl r
+                    LEFT JOIN recordstbl rec ON r.request_id = rec.request_id
+                    WHERE r.vehicle_id = ?
+                    AND (
+                        LOWER(TRIM(rec.record_status)) = 'in progress'
+                        OR LOWER(TRIM(r.status)) IN ('pending', 'approved', 'rescheduling')
+                    )
+                    LIMIT 1
+                ");
+                $check->bind_param("i", $vehicle_id);
+                $check->execute();
+                $check->store_result();
+
+                // ✅ Add flag
+                $row['is_unavailable'] = $check->num_rows > 0;
+
                 $vehicles[] = $row;
+
+                $check->close();
             }
+
             $response['vehicles'] = $vehicles;
         } else {
             $response['vehicles'] = [];

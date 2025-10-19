@@ -1187,6 +1187,12 @@ include_once '../includes/headNav.php';
 
                 btn.prop('disabled', true).text('Cancelling...');
 
+                Swal.fire({
+                                title: 'Cancelling Request...',
+                                allowOutsideClick: false,
+                                didOpen: () => Swal.showLoading()
+                            });
+                
                 $.ajax({
                     url: '/CABTECH/CAPSTONE - WEBSITE/handlers/manageRequest.php',
                     method: 'POST',

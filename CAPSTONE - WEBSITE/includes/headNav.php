@@ -271,7 +271,7 @@ if ($isLinked && $client_id > 0) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="serviceRequestLabel">SELECT YOUR SERVICE</h5>
+                    <h5 class="modal-title fw-bold" id="serviceRequestLabel">SELECT AND SCHEDULE YOUR SERVICES</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -1165,12 +1165,6 @@ if ($isLinked && $client_id > 0) {
                 }
             });
         }
-
-
-
-
-
-
 
 
 
@@ -2202,31 +2196,49 @@ if ($isLinked && $client_id > 0) {
                     },
                     success: function(res) {
                         if (res && res.success) {
-                            Swal.fire("Success", res.message || "Request created successfully.", "success").then(() => {
+                            Swal.fire({
+                                    title: "Request Submitted Successfully!",
+                                    html: `
+                                        <p>Your service request has been created successfully.</p>
+                                        <p>
+                                            Please wait while we review your request. You can check your 
+                                            <b>Service Status</b> anytime from your account or email notifications.
+                                        </p>
+                                        <p>
+                                            Once your request is approved or updated, you'll receive a notification 
+                                            regarding the schedule and other important details.
+                                        </p>
+                                        <p>Thank you for choosing <b>CabTech Auto Services</b>!</p>
+                                    `,
+                                    icon: "success",
+                                    confirmButtonText: "Got it!",
+                                    confirmButtonColor: "#d42a2a"
+                                }).then(() => {
+                                    location.reload();
                                 // Hide modal
-                                $("#serviceRequestModal").modal("hide");
+                                // $("#serviceRequestModal").modal("hide");
 
-                                $("#serviceRequestModal input, #serviceRequestModal select, #serviceRequestModal textarea").val("");
-                                $("#serviceRequestModal input[type=checkbox], #serviceRequestModal input[type=radio]").prop("checked", false);
+                                // $("#serviceRequestModal input, #serviceRequestModal select, #serviceRequestModal textarea").val("");
+                                // $("#serviceRequestModal input[type=checkbox], #serviceRequestModal input[type=radio]").prop("checked", false);
 
-                                selectedClient = null;
-                                selectedVehicle = null;
-                                selectedServiceIds = new Set();
-                                request_Details = null;
-                                request_servicesInfo = null;
-                                request_servicesDetails = null;
-                                request_Client = null;
-                                request_Vehicle = null;
+                                // selectedClient = null;
+                                // selectedVehicle = null;
+                                // selectedServiceIds = new Set();
+                                // request_Details = null;
+                                // request_servicesInfo = null;
+                                // request_servicesDetails = null;
+                                // request_Client = null;
+                                // request_Vehicle = null;
 
-                                currentStep = 1;
-                                showStep(currentStep);
+                                // currentStep = 1;
+                                // showStep(currentStep);
 
-                                if (typeof refreshRequestList === "function") {
-                                    refreshRequestList(); // refresh request table/list if exists
-                                }
-                                if (typeof refreshCalendar === "function") {
-                                    refreshCalendar(); // refresh calendar view if exists
-                                }
+                                // if (typeof refreshRequestList === "function") {
+                                //     refreshRequestList(); // refresh request table/list if exists
+                                // }
+                                // if (typeof refreshCalendar === "function") {
+                                //     refreshCalendar(); // refresh calendar view if exists
+                                // }
                             });
                         } else {
                             Swal.fire("Error", res.message || "Failed to create request.", "error");
