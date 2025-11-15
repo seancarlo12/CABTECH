@@ -1736,3 +1736,8 @@
 [2025-10-19 12:08:15] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
 [2025-10-19 12:08:15] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
 [2025-10-19 12:08:15] Skipped verification: session client_id=2
+[2025-10-20 06:38:24] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-10-20 06:38:24] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-10-20 06:38:24] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-10-20 06:38:24] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-10-20 06:38:24] Skipped verification: session client_id=1

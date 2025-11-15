@@ -164,7 +164,7 @@ include_once '../includes/headNav.php';
 
         // determine visual state by comparing indexes
         if ($index == $currIndex) {
-            $color = '#D42A2A'; // current (red)
+            $color = '#fcc201'; // current (red)
             $fontWeight = 'bold';
         } elseif ($index < $currIndex) {
             $color = '#28a745'; // completed (green)
