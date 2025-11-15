@@ -52,8 +52,8 @@
 
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 text-center text-md-start">
                 <h5 class="text-white mb-4 mt-3">Get In Touch</h5>
-                <p class="text-white small mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Caloocan City,
-                    Philippines</p>
+                <p class="text-white small mb-2"><i class="fas fa-map-marker-alt me-2"></i> KM 110, Maharlika High Way, Sumacab Este, Cabanatuan City
+</p>
                 <p class="text-white small mb-2"><i class="fas fa-phone-alt me-2"></i> +63 997 335 3468</p>
                 <p class="text-white small mb-2"><i class="fas fa-envelope me-2"></i> cabtech.system@gmail.com</p>
             </div>
