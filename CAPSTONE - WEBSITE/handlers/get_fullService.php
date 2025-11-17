@@ -91,11 +91,15 @@ if (isset($_POST['request_id'], $_POST['action']) && $_POST['action'] === 'getRo
         (CASE WHEN rs.service_id IS NULL THEN 1 ELSE 0 END) AS is_custom_service,
         IF(rs.service_id IS NULL, rs.custom_service, s.service_name) AS service_name,
         rs.custom_est_duration AS estimated_duration,
-        rs.custom_labor_cost AS labor_cost
+        rs.custom_labor_cost AS labor_cost,
+        r.status
     FROM requested_servicestbl rs
-    LEFT JOIN servicestbl s ON rs.service_id = s.service_id
+    LEFT JOIN servicestbl s 
+        ON rs.service_id = s.service_id
+    LEFT JOIN requeststbl r 
+        ON rs.request_id = r.request_id
     WHERE rs.request_id = ?
-    ";
+";
     $stmt = $db_connection->prepare($getServicesQuery);
     $stmt->bind_param("i", $requestId);
     $stmt->execute();

@@ -4,8 +4,8 @@
 $host = 'localhost';
 $user = 'root';
 $password = '';
-// $dbname = 'cabtech_db'; FOR TESTINGS
-$dbname = 'cabtech_db_final';
+$dbname = 'cabtech_db'; 
+// $dbname = 'cabtech_db_final';
 // $dbname = 'cabtechsystem_db'; //TESTS
 
 global $db_connection;

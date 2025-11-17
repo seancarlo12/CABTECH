@@ -627,7 +627,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetAddForm();">Cancel</button>
-                            <button type="submit" id="addClientbtn" class="btn btn-primary"> <i class="bx bx-plus"></i>Add Record</button>
+                            <button type="submit" id="addClientbtn" class="btn btn-primary"> <i class="bx bx-plus"></i>Add</button>
                         </div>
                     </form>
                 </div>
@@ -1163,12 +1163,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         iconHtml: '<i class=\'bx bx-check-circle\'></i>',
                         title: 'Client Added Successfully',
                         text: response.message
+                    }).then(() => {
+                        $('#addClientForm')[0].reset();
+                        $('#addClientModal').modal('hide');
+
+                        location.reload();
                     });
-
-                    $('#addClientForm')[0].reset();
-                    $('#addClientModal').modal('hide');
-
-                    location.reload();
                 } else if (response.status == 'existing') {
                     Swal.fire({
                         ...swalOptions,
@@ -1480,21 +1480,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return;
         }
     }
-// BACK TO TOP BUTTON FUNCTION
-const goTopButton = document.getElementById('goTop');
+    // BACK TO TOP BUTTON FUNCTION
+    const goTopButton = document.getElementById('goTop');
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-        goTopButton.classList.add('show');
-    } else {
-        goTopButton.classList.remove('show');
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            goTopButton.classList.add('show');
+        } else {
+            goTopButton.classList.remove('show');
+        }
+    });
 
-goTopButton.addEventListener('click', (e) => {
-    e.preventDefault(); // prevent navigation
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+    goTopButton.addEventListener('click', (e) => {
+        e.preventDefault(); // prevent navigation
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 </script>
 </body>
 

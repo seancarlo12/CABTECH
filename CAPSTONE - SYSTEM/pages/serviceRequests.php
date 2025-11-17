@@ -1568,6 +1568,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (checkSelection()) {
                 return; // Exit if no valid selection
             }
+            
             document.getElementById("mechanicSearch").value = "";
             document.getElementById("assigned-mechanics").innerHTML = "Assign a mechanic";
             AssignedMechanics.request_id = null;
@@ -1601,6 +1602,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     mechanics = response.mechanics;
                     // console.log(mechanics);
 
+                    if(!mechanics){
+                        swal.fire({
+                            ...swalOptions,
+                            iconHtml: '<i class="bx bx-info-circle"></i>',
+                            title: 'No Mechanics Found',
+                            text: 'There are no mechanics available to assign.'
+                        });
+                        return;
+                    }
                     if (request_Details.status === 'In Progress') {
                         Swal.fire({
                             ...swalOptions,
