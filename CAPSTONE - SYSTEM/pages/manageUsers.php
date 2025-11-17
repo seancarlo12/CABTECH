@@ -523,7 +523,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                         if ($_SESSION['User_role'] === 'Super Admin') {
                             // Super Admin sees Super Admin + Admin
-                            $query = "SELECT * FROM userstbl WHERE role IN ('Super Admin', 'Admin')";
+                            $query = "SELECT * FROM userstbl WHERE role IN ('Super Admin', 'Admin', 'Mechanic')";
                         } else {
                             // Admin or others see mechanics only
                             $query = "SELECT * FROM userstbl WHERE role = 'Mechanic'";
