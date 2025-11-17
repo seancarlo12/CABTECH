@@ -487,13 +487,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <div id="table-box"><i class="bx bx-help-circle" title="help" id="helpicon"></i>
 
             <div id="buttons"><!-- BUTTONS FOR CRUD FUNCTIONS -->
-                <button id="addbtn" type="button" data-bs-target="#addUserModal" data-bs-toggle="modal"><i class='bx bx-plus'></i><span>Add</span></button>
-                <button id="editbtn"><i class='bx bx-pencil'></i><span>Edit</span></button>
-                <button id="activatebtn" onclick="changeAccStatus('activate');"><i class='bx bxs-circle'></i><span>Activate</span></button>
-                <button id="deacbtn" onclick="changeAccStatus('deactivate');"><i class='bx bxs-circle'></i><span>Deactivate</span></button>
+                <?php if ($_SESSION['User_role'] === 'Super Admin'): ?>
 
+                    <button id="addbtn" type="button" data-bs-target="#addUserModal" data-bs-toggle="modal"><i class='bx bx-plus'></i><span>Add</span></button>
+                    <button id="editbtn"><i class='bx bx-pencil'></i><span>Edit</span></button>
+                    <button id="activatebtn" onclick="changeAccStatus('activate');"><i class='bx bxs-circle'></i><span>Activate</span></button>
+                    <button id="deacbtn" onclick="changeAccStatus('deactivate');"><i class='bx bxs-circle'></i><span>Deactivate</span></button>
 
-                <button id="manageSpecialties"><i class='bx bx-wrench'></i><span>Manage Specialties</span></button>
+                <?php endif; ?>
+
+                <button id="manageSpecialties"><i class='bx bx-wrench'></i><span>Manage All Specialties</span></button>
             </div>
             <div id="mesa">
                 <!-- TABLE USES DATABLES LIBRARY -->
@@ -515,7 +518,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <tbody>
                         <?php
                         //POPULATING THE TABLE WITH VALUES FROM DB
-                        $rs = mysqli_query($db_connection, 'SELECT * FROM userstbl');
+
+                        $query = "";
+
+                        if ($_SESSION['User_role'] === 'Super Admin') {
+                            // Super Admin sees Super Admin + Admin
+                            $query = "SELECT * FROM userstbl WHERE role IN ('Super Admin', 'Admin')";
+                        } else {
+                            // Admin or others see mechanics only
+                            $query = "SELECT * FROM userstbl WHERE role = 'Mechanic'";
+                        }
+
+                        $rs = mysqli_query($db_connection, $query);
 
                         while ($rw = mysqli_fetch_array($rs)) {
                             $workStatus = $rw['work_status'];
