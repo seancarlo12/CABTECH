@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 $response = [];
 
 if (isset($_SESSION['User_role']) && $_SESSION['User_role'] == "Super Admin") {
-    // ✅ Invoices (sum totals)
+    // Invoices (sum totals)
     $sqlInvoices = "SELECT 
                             SUM(items_total) AS items_total, 
                             SUM(services_total) AS services_total, 
@@ -28,7 +28,7 @@ if (isset($_SESSION['User_role']) && $_SESSION['User_role'] == "Super Admin") {
         $response['invoices'] = $rowInvoices; // direct assign
     }
 
-    // ✅ Completed records
+    // Completed records
     $sqlRecords = "SELECT COUNT(*) AS all_record FROM recordstbl";
     $resRecords = mysqli_query($db_connection, $sqlRecords);
     if ($resRecords) {
@@ -57,7 +57,7 @@ if (isset($_SESSION['User_role']) && $_SESSION['User_role'] == "Super Admin") {
         $response['requests'] = $requestCounts;
     }
 
-    // ✅ Users count
+    // Users count
     $sqlUsers = "SELECT COUNT(*) AS total_users FROM userstbl";
     $resUsers = mysqli_query($db_connection, $sqlUsers);
     if ($resUsers) {
@@ -105,22 +105,31 @@ if ($resRequestsOverview) {
         // Example: dashboardStats object from PHP
         // console.log("Dashboard Stats:", dashboardStats);
 
-        // ✅ Insert revenue (grand_total)
+        // Insert revenue (grand_total)
         if (dashboardStats.invoices) {
             // Grand total
             document.querySelector(".grand-total").textContent =
-                "₱ " + parseFloat(dashboardStats.invoices.grand_total).toFixed(2).toLocaleString();
+            "₱ " + Number(dashboardStats.invoices.grand_total).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
 
             // Items total
             document.querySelector(".items-total").textContent =
-                "Items: ₱ " + parseFloat(dashboardStats.invoices.items_total).toFixed(2).toLocaleString();
+                "Items: ₱ " + Number(dashboardStats.invoices.items_total).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
 
             // Services total
             document.querySelector(".services-total").textContent =
-                "Services: ₱ " + parseFloat(dashboardStats.invoices.services_total).toFixed(2).toLocaleString();
+            "Services: ₱ " + Number(dashboardStats.invoices.services_total).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
         }
 
-        // ✅ Insert quick stats
+        // Insert quick stats
         if (dashboardStats.requests) {
             console.log(dashboardStats.requests);
 

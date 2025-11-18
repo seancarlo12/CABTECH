@@ -4,7 +4,7 @@
 $host = 'localhost';
 $user = 'root';
 $password = '';
-$dbname = 'cabtech_db'; 
+$dbname = 'cabtech_db';
 // $dbname = 'cabtech_db_final';
 // $dbname = 'cabtechsystem_db'; //TESTS
 
@@ -261,6 +261,18 @@ function sendRequestStatusEmail($db_connection, $client_id, $request_id, $reques
             Payment has been confirmed and your request is now fully completed.
             Thank you for trusting <b>CabTech Auto Services</b>! We appreciate your business and hope to serve you again.
         ";
+            break;
+            
+        case str_starts_with($statusKey, 'rescheduled'):
+            // Extract formatted schedule portion
+            $reschedTime = trim(str_replace('rescheduled', '', $statusKey));
+
+            $details = "
+                    Your service request has been <b>rescheduled</b>.<br>
+                    <b>New schedule:</b> {$reschedTime}<br><br>
+                    Please arrive on time for the updated appointment.
+                    Contact us if you need further assistance.
+                ";
             break;
 
         default:

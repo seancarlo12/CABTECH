@@ -2743,7 +2743,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // console.log('New Schedule:', newSched);
             // console.log('Reason:', reason === 'other' ? customReason : reason);
 
-
+            Swal.fire({
+                iconHtml: '<i class="bx bx-loader-circle"></i>',
+                title: 'Processing...',
+                text: 'Rescheduling the request and notifying the client. Please wait.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             $.ajax({
                 url: 'handlers/serviceRequests-handler.php',
                 method: 'POST',

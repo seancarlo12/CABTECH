@@ -1014,8 +1014,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateSchedule') {
         // Commit transaction
         $db_connection->commit();
 
+        $client_id = $updatedRow['client_id'];
         $response['status'] = 'success';
-        $response['message'] = 'Schedule updated and reschedule count incremented.';
+        $response['message'] = 'Schedule updated and Client notified.';
         $response['updated_request'] = $updatedRow;
         insertLog($db_connection, "Rescheduled a service request / Request ID: $request_id", "Request");
 
@@ -1045,6 +1046,12 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateSchedule') {
                 'requests'
             );
         }
+
+        
+        $emailResult = sendRequestStatusEmail($db_connection, $client_id, $request_id, 'Rescheduled to '. $formatted_schedule, $reason);
+        $response['email_status'] = $emailResult['success'] ? 'sent' : 'failed';
+        $response['email_message'] = $emailResult['message'];
+
     } catch (Exception $e) {
         // Rollback transaction on any error
         $db_connection->rollback();

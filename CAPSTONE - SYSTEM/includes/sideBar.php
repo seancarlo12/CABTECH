@@ -145,7 +145,7 @@ include_once('header.php');
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
-                        <img src="assets/img/lerong.png" alt="profileImg">
+                        <img src="assets/img/secondary_logo.svg" alt="profileImg">
                     </div>
                     <div class="name-job">
                         <div class="profile_name"><?php echo $_SESSION["Username"]; ?></div>
