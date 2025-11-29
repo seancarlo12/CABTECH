@@ -1811,3 +1811,74 @@
 [2025-11-18 00:15:36] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
 [2025-11-18 00:15:36] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
 [2025-11-18 00:15:36] Skipped verification: session client_id=1
+[2025-11-18 05:42:15] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:42:15] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:42:15] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:42:16] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:42:16] Email to verify: tolentinoesie@gmail.com
+[2025-11-18 05:42:16] Email to verify (normalized): tolentinoesie@gmail.com
+[2025-11-18 05:42:16] Using DB connection: $db_connection
+[2025-11-18 05:42:16] Email exists check for tolentinoesie@gmail.com: not found (rows=0)
+[2025-11-18 05:42:16] Generated code for tolentinoesie@gmail.com: 973536
+[2025-11-18 05:42:21] Email sent successfully to tolentinoesie@gmail.com
+[2025-11-18 05:42:21] Response: {"success":true,"message":"Verification code sent."}
+[2025-11-18 05:43:13] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:43:13] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:43:13] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:43:13] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:43:13] Email to verify: tolentinoesie@gmail.com
+[2025-11-18 05:43:13] Email to verify (normalized): tolentinoesie@gmail.com
+[2025-11-18 05:43:13] Using DB connection: $db_connection
+[2025-11-18 05:43:13] Email exists check for tolentinoesie@gmail.com: not found (rows=0)
+[2025-11-18 05:43:13] Generated code for tolentinoesie@gmail.com: 498594
+[2025-11-18 05:43:18] Email sent successfully to tolentinoesie@gmail.com
+[2025-11-18 05:43:18] Response: {"success":true,"message":"Verification code sent."}
+[2025-11-18 05:43:41] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:43:41] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:43:41] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:43:41] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:43:41] Email to verify: tolentinoesie@gmail.com
+[2025-11-18 05:43:41] Email to verify (normalized): tolentinoesie@gmail.com
+[2025-11-18 05:43:41] Using DB connection: $db_connection
+[2025-11-18 05:43:41] Email exists check for tolentinoesie@gmail.com: not found (rows=0)
+[2025-11-18 05:43:41] Generated code for tolentinoesie@gmail.com: 884941
+[2025-11-18 05:43:46] Email sent successfully to tolentinoesie@gmail.com
+[2025-11-18 05:43:46] Response: {"success":true,"message":"Verification code sent."}
+[2025-11-18 05:50:00] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:50:00] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:50:00] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:50:00] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:50:00] Email to verify: tolentinoesie@gmail.com
+[2025-11-18 05:50:00] Email to verify (normalized): tolentinoesie@gmail.com
+[2025-11-18 05:50:00] Using DB connection: $db_connection
+[2025-11-18 05:50:00] Email exists check for tolentinoesie@gmail.com: found (rows=1)
+[2025-11-18 05:50:00] Generated code for tolentinoesie@gmail.com: 289477
+[2025-11-18 05:50:06] Email sent successfully to tolentinoesie@gmail.com
+[2025-11-18 05:50:06] Response: {"success":true,"message":"Verification code sent."}
+[2025-11-18 05:52:20] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:52:20] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:52:20] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:52:20] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:52:20] Email to verify: christophersantiago0905@gmail.com
+[2025-11-18 05:52:20] Email to verify (normalized): christophersantiago0905@gmail.com
+[2025-11-18 05:52:20] Using DB connection: $db_connection
+[2025-11-18 05:52:20] Email exists check for christophersantiago0905@gmail.com: not found (rows=0)
+[2025-11-18 05:52:20] Generated code for christophersantiago0905@gmail.com: 747411
+[2025-11-18 05:52:25] Email sent successfully to christophersantiago0905@gmail.com
+[2025-11-18 05:52:25] Response: {"success":true,"message":"Verification code sent."}
+[2025-11-18 05:55:04] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-18 05:55:04] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-18 05:55:04] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-18 05:55:04] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-18 05:55:04] Skipped verification: session client_id=3
+[2025-11-29 13:43:32] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-11-29 13:43:32] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-11-29 13:43:32] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-11-29 13:43:32] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-11-29 13:43:32] Email to verify: tolentinoesie@gmail.com
+[2025-11-29 13:43:32] Email to verify (normalized): tolentinoesie@gmail.com
+[2025-11-29 13:43:32] Using DB connection: $db_connection
+[2025-11-29 13:43:32] Email exists check for tolentinoesie@gmail.com: found (rows=1)
+[2025-11-29 13:43:32] Generated code for tolentinoesie@gmail.com: 160844
+[2025-11-29 13:43:37] Email sent successfully to tolentinoesie@gmail.com
+[2025-11-29 13:43:37] Response: {"success":true,"message":"Verification code sent."}

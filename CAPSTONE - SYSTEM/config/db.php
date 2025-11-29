@@ -346,6 +346,84 @@ function sendRequestStatusEmail($db_connection, $client_id, $request_id, $reques
 
 
 
+function sendCustomEmailToClient($db_connection, $client_id, $customBody, $subject = "CabTech Auto Services - Notification")
+{
+    // --- 1. Fetch client info ---
+    $query = "SELECT first_name, last_name, email FROM clientstbl WHERE client_id = ?";
+    $stmt = $db_connection->prepare($query);
+    $stmt->bind_param("i", $client_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        return ['success' => false, 'message' => 'Client not found.'];
+    }
+
+    $client = $result->fetch_assoc();
+    $clientName = trim($client['first_name'] . ' ' . $client['last_name']);
+    $clientEmail = $client['email'];
+
+    if (empty($clientEmail)) {
+        return ['success' => false, 'message' => 'Client email is missing.'];
+    }
+
+    // --- 2. Compose full HTML email ---
+    $body = "
+    <html>
+    <body style='font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 20px; color: #333;'>
+        <table style='max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;'>
+            <tr>
+                <td style='background-color: #D42A2A; padding: 20px 30px; text-align: center;'>
+                    <h1 style='color: #ffffff; margin: 0; font-size: 24px; text-transform: uppercase; font-weight: bolder;'>CabTech Auto Services</h1>
+                </td>
+            </tr>
+            <tr>
+                <td style='padding: 30px;'>
+                    <p style='font-size: 16px;'>Dear <b>" . htmlspecialchars($clientName, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</b>,</p>
+                    <div style='font-size: 15px; line-height: 1.6; color: #444;'>{$customBody}</div>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td style='background-color: #f0f0f0; text-align: center; padding: 15px;'>
+                    <p style='font-size: 12px; color: #777; margin: 0;'>This is an automated message. Please do not reply.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    ";
+
+    // --- 3. Send email using PHPMailer ---
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/PHPMailer.php');
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/Exception.php');
+    require_once(__DIR__ . '/../../plugins/PHPMailer/src/SMTP.php');
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'cabtech.system@gmail.com';
+        $mail->Password   = 'xpze ongj ijau zyiu'; // store in config for production
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->setFrom('cabtech.system@gmail.com', 'CabTech Auto Services');
+        $mail->addAddress($clientEmail, $clientName);
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        $mail->send();
+        return ['success' => true, 'message' => 'Custom email sent successfully.'];
+    } catch (\Exception $e) {
+        return ['success' => false, 'message' => 'Mailer Error: ' . $mail->ErrorInfo];
+    }
+}
+
 
 
 

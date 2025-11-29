@@ -52,6 +52,13 @@ include_once '../includes/headNav.php';
             {
                 $sql = "
                 SELECT
+                    rec.started_dt,
+                    -- Calculate total estimated minutes from HH:MM strings
+                    SUM(
+                        CAST(SUBSTRING_INDEX(COALESCE(rst.custom_est_duration, '0:0'), ':', 1) AS UNSIGNED) * 60
+                        +
+                        CAST(SUBSTRING_INDEX(COALESCE(rst.custom_est_duration, '0:0'), ':', -1) AS UNSIGNED)
+                    ) AS total_estimated_minutes,
                     sr.request_id,
                     sr.status,
                     sr.sched_dt,
@@ -72,22 +79,27 @@ include_once '../includes/headNav.php';
                             '||',
                             rst.rst_id,
                             '||',
-                            COALESCE(rst.custom_labor_cost, 0)
+                            COALESCE(rst.custom_labor_cost, 0),
+                            '||',
+                            COALESCE(rst.custom_est_duration, '0:0') -- include duration here
                         ) SEPARATOR '%%'
                     ) AS service_comment_pairs,
                     sr.request_type
                 FROM requeststbl sr
-                LEFT JOIN vehiclestbl v 
-                    ON v.vehicle_id = sr.vehicle_id
-                LEFT JOIN requested_servicestbl rst 
-                    ON rst.request_id = sr.request_id
-                LEFT JOIN servicestbl svc 
-                    ON svc.service_id = rst.service_id
+                LEFT JOIN vehiclestbl v ON v.vehicle_id = sr.vehicle_id
+                LEFT JOIN requested_servicestbl rst ON rst.request_id = sr.request_id
+                LEFT JOIN servicestbl svc ON svc.service_id = rst.service_id
+                LEFT JOIN (
+                    SELECT request_id, MAX(started_dt) AS started_dt
+                    FROM recordstbl
+                    GROUP BY request_id
+                ) rec ON rec.request_id = sr.request_id
                 WHERE sr.client_id = ?
                 AND ($status_condition_sql)
                 GROUP BY sr.request_id
                 ORDER BY display_dt DESC, sr.request_dt DESC;
                 ";
+
 
                 $stmt = mysqli_prepare($db, $sql);
                 if (!$stmt) return [];
@@ -109,7 +121,7 @@ include_once '../includes/headNav.php';
 
             $ongoing = fetch_requests($db_connection, $client_id, $ongoingStatuses);
             $history = fetch_requests($db_connection, $client_id, $historyStatuses);
-
+            error_log("ONGOING DATA: " . print_r($ongoing, true));
             ?>
             <h2 class="mb-4">My Services</h2>
 
@@ -151,6 +163,7 @@ include_once '../includes/headNav.php';
                     }
 
                     $allStatuses = ['Pending', 'Approved', 'In Progress', 'Completed'];
+
                 ?>
                     <div id="ongoing-style" class="card mb-4 shadow-sm ">
                         <div class="ong-head">
@@ -158,6 +171,16 @@ include_once '../includes/headNav.php';
                             // prepare current index
                             $currIndex = array_search(ucwords($status), $allStatuses);
                             if ($currIndex === false) $currIndex = -1; // unknown status fallback
+
+                            $startTimestamp = !empty($req['started_dt']) ? strtotime($req['started_dt']) : false;
+                            $totalMinutes = (float)$req['total_estimated_minutes'];
+
+                            // Add 30-minute buffer
+                            $bufferSeconds = 30 * 60; // 30 minutes in seconds
+
+                            $estimatedFinishTime = ($startTimestamp && $totalMinutes > 0)
+                                ? date('M d, Y h:i A', $startTimestamp + ($totalMinutes * 60) + $bufferSeconds)
+                                : null;
 
                             foreach ($allStatuses as $index => $s):
                                 $sLower = strtolower($s);
@@ -173,13 +196,23 @@ include_once '../includes/headNav.php';
                                     $color = '#ccc'; // future (gray)
                                     $fontWeight = 'normal';
                                 }
+
+
                             ?>
                                 <div class="ong-step">
                                     <!-- Circle or Check -->
                                     <?php if ($sLower === 'completed'): ?>
-                                        <!-- show check icon (color depends on whether it's completed/current/future) -->
+                                        <!-- Completed icon -->
                                         <div style="position:relative; z-index:2; font-size:20px; line-height:1;">
                                             <i class="fa-solid fa-check-circle" style="color: <?= $color ?>;"></i>
+                                        </div>
+
+                                        <div class="status-container" style="position: relative;">
+                                            <?php if (strtolower($status) !== 'completed' && $estimatedFinishTime): ?>
+                                                <div id="est-time">
+                                                    Estimated Finish: <strong><?= $estimatedFinishTime ?></strong>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     <?php else: ?>
                                         <div class="circle" style="background-color: <?= $color ?>;"></div>
@@ -232,6 +265,7 @@ include_once '../includes/headNav.php';
                                             <th>#</th>
                                             <th>Service Name</th>
                                             <th>Estimated Labor Cost</th>
+                                            <th>Duration</th> <!-- NEW COLUMN -->
                                             <th>Your Comments/Description</th>
                                             <?php if (strtolower($req['status']) === 'pending'): ?>
                                                 <th>Action</th>
@@ -245,20 +279,32 @@ include_once '../includes/headNav.php';
                                         $totalEstimated = 0;
 
                                         foreach ($pairs as $pair):
-                                            // Split into 4 parts: [service, comment, rst_id, labor_cost]
-                                            $parts = explode('||', $pair, 4);
-                                            $parts = array_pad($parts, 4, '');
-                                            [$svc, $comment, $rst_id, $labor_cost] = array_map('trim', $parts);
+                                            // Split into 5 parts: [service, comment, rst_id, labor_cost, duration]
+                                            $parts = explode('||', $pair, 5);
+                                            $parts = array_pad($parts, 5, '');
+                                            [$svc, $comment, $rst_id, $labor_cost, $duration] = array_map('trim', $parts);
 
+                                            // Format labor cost
                                             $numericCost = is_numeric($labor_cost) ? (float)$labor_cost : 0;
                                             $totalEstimated += $numericCost;
-
                                             $formattedCost = '₱' . number_format($numericCost, 2);
+
+                                            // Format duration
+                                            if (!empty($duration) && strpos($duration, ':') !== false) {
+                                                list($hours, $minutes) = explode(':', $duration);
+                                                $hours = (int)$hours;
+                                                $minutes = (int)$minutes;
+                                                $displayDuration = ($hours > 0 ? $hours . 'Hr ' : '') . ($minutes > 0 ? $minutes . ' Min' : '');
+                                                if ($displayDuration === '') $displayDuration = '0 Min';
+                                            } else {
+                                                $displayDuration = 'N/A';
+                                            }
                                         ?>
                                             <tr>
                                                 <td><?= $i++ ?></td>
                                                 <td><?= htmlspecialchars($svc ?: '') ?></td>
                                                 <td><?= $formattedCost ?></td>
+                                                <td><?= htmlspecialchars($displayDuration) ?></td>
                                                 <td class="service-comment"><?= htmlspecialchars($comment ?: '') ?></td>
 
                                                 <?php if (strtolower($req['status']) === 'pending'): ?>
@@ -282,13 +328,13 @@ include_once '../includes/headNav.php';
                                     </tbody>
                                     <tfoot class="table-light">
                                         <tr>
-                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="">
+                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 6 : 5; ?>" class="">
                                                 <b>Total Estimated Labor Cost:</b>
                                                 <span class="text-primary">₱<?= number_format($totalEstimated, 2) ?></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 5 : 4; ?>" class="text-muted small fst-italic">
+                                            <td colspan="<?php echo strtolower($req['status']) === 'pending' ? 6 : 5; ?>" class="text-muted small fst-italic">
                                                 <em>Note:</em>
                                                 The total shown above is an <b><u>estimated cost</u></b> and may vary depending on the specific
                                                 products, <br> parts used, vehicle make, model, and current condition.

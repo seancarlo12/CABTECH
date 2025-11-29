@@ -5,7 +5,7 @@ session_name('CABTECH_WEBSITE');
 session_start();
 
 // clear time for testing
-// unset($_SESSION['login_attempts']);
+unset($_SESSION['login_attempts']);
 
 
 

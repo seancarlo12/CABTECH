@@ -92,4 +92,5 @@ echo json_encode([
     'count' => $unread_count,
     'notifications' => $notifications
 ]);
+
 exit;
