@@ -1920,3 +1920,46 @@
 [2025-12-01 05:50:46] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
 [2025-12-01 05:50:46] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
 [2025-12-01 05:50:46] Skipped verification: session client_id=4
+[2025-12-09 03:32:36] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-12-09 03:32:36] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-12-09 03:32:36] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-12-09 03:32:36] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-12-09 03:32:36] Email to verify: christophersantiago0905@gmail.com
+[2025-12-09 03:32:36] Email to verify (normalized): christophersantiago0905@gmail.com
+[2025-12-09 03:32:36] Using DB connection: $db_connection
+[2025-12-09 03:32:36] Email exists check for christophersantiago0905@gmail.com: not found (rows=0)
+[2025-12-09 03:32:36] Generated code for christophersantiago0905@gmail.com: 806261
+[2025-12-09 03:32:36] Email sending failed: SMTP Error: Could not connect to SMTP host. Failed to connect to server
+[2025-12-09 03:32:36] Response: {"success":false,"message":"Failed to send verification email."}
+[2025-12-09 03:33:12] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-12-09 03:33:12] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-12-09 03:33:12] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-12-09 03:33:12] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-12-09 03:33:12] Email to verify: christophersantiago0905@gmail.com
+[2025-12-09 03:33:12] Email to verify (normalized): christophersantiago0905@gmail.com
+[2025-12-09 03:33:12] Using DB connection: $db_connection
+[2025-12-09 03:33:12] Email exists check for christophersantiago0905@gmail.com: not found (rows=0)
+[2025-12-09 03:33:12] Generated code for christophersantiago0905@gmail.com: 935750
+[2025-12-09 03:33:22] Email sent successfully to christophersantiago0905@gmail.com
+[2025-12-09 03:33:22] Response: {"success":true,"message":"Verification code sent."}
+[2025-12-09 03:34:35] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2025-12-09 03:34:35] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2025-12-09 03:34:35] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2025-12-09 03:34:35] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2025-12-09 03:34:35] Skipped verification: session client_id=5
+[2026-03-14 09:32:31] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2026-03-14 09:32:31] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2026-03-14 09:32:31] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2026-03-14 09:32:31] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2026-03-14 09:32:31] Email to verify: seantolentino2368@gmail.com
+[2026-03-14 09:32:31] Email to verify (normalized): seantolentino2368@gmail.com
+[2026-03-14 09:32:31] Using DB connection: $db_connection
+[2026-03-14 09:32:31] Email exists check for seantolentino2368@gmail.com: found (rows=1)
+[2026-03-14 09:32:31] Generated code for seantolentino2368@gmail.com: 778223
+[2026-03-14 09:32:38] Email sent successfully to seantolentino2368@gmail.com
+[2026-03-14 09:32:38] Response: {"success":true,"message":"Verification code sent."}
+[2026-03-14 10:05:39] DB included successfully: C:\xampp\htdocs\CABTECH/CAPSTONE - SYSTEM/config/db.php
+[2026-03-14 10:05:39] PHPMailer Exception included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/Exception.php
+[2026-03-14 10:05:39] PHPMailer PHPMailer included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/PHPMailer.php
+[2026-03-14 10:05:39] PHPMailer SMTP included successfully: C:\xampp\htdocs\CABTECH/plugins/PHPMailer/src/SMTP.php
+[2026-03-14 10:05:39] Skipped verification: session client_id=1

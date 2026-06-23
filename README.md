@@ -69,7 +69,9 @@ Customers can schedule vehicle services through an online booking system.
 - Schedule conflict prevention
 - Appointment management dashboard
 
-[Appointment Scheduling Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/appt.png" alt="Appointment Management Screenshot" width="100%">
+</p>
 
 ---
 
@@ -83,23 +85,13 @@ Allows staff to manage both walk-in and appointment-based service requests.
 - Request approval and processing
 - Status monitoring
 
-[Service Request Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/req.png" alt="Request Module Screenshot" width="100%">
+</p>
+
 
 ---
 
-## 🚘 Vehicle Management
-
-Stores and manages customer vehicle information.
-
-### Features
-- Vehicle registration
-- Vehicle profile management
-- Customer-vehicle association
-- Vehicle service history
-
-[Vehicle Management Screenshot]
-
----
 
 ## 👤 Customer Management
 
@@ -111,7 +103,9 @@ Centralized customer information management.
 - Contact information management
 - Service history viewing
 
-[Customer Management Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/cust-man.png" alt="Customer Management Screenshot" width="100%">
+</p>
 
 ---
 
@@ -125,7 +119,9 @@ Tracks vehicle services throughout the service lifecycle.
 - Completion tracking
 - Historical service records
 
-[Service Tracking Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/serv-track.png" alt="Service Tracking Screenshot" width="100%">
+</p>
 
 ---
 
@@ -139,7 +135,9 @@ Automated communication system using email notifications.
 - Schedule notifications
 - Customer alerts
 
-[Email Notification Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/email.png" alt="Email Notifications Screenshot" width="100%">
+</p>
 
 ---
 
@@ -153,7 +151,9 @@ Provides operational insights and reporting capabilities.
 - Customer reports
 - Administrative monitoring
 
-[Reports Dashboard Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/rep.png" alt="Report Screenshot" width="100%">
+</p>
 
 ---
 
@@ -198,34 +198,6 @@ Provides operational insights and reporting capabilities.
 | VS Code | Development Environment |
 | XAMPP | Local Development Server |
 
----
-
-# 🏗 System Architecture
-
-## User Roles
-
-### Customer
-
-- Create service requests
-- Book appointments
-- Track service status
-- View service history
-
-### Staff
-
-- Process service requests
-- Update service progress
-- Manage appointments
-- Maintain customer records
-
-### Administrator
-
-- Manage users
-- Manage services
-- Generate reports
-- Monitor activities
-
-[System Workflow Diagram]
 
 ---
 
@@ -244,7 +216,9 @@ The system utilizes a relational database architecture consisting of the followi
 - Shop Calendar
 - Activity Logs
 
-[Entity Relationship Diagram (ERD)]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/erd.png" alt="ERD Screenshot" width="100%">
+</p>
 
 ---
 
@@ -306,49 +280,60 @@ As the primary developer of this project, I was responsible for:
 
 ## Login Page
 
-[Login Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/login.png" alt="Login Screenshot" width="100%">
+</p>
 
 ---
 
 ## Administrator Dashboard
 
-[Dashboard Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/admin-dash.png" alt="Admin Dashboard Screenshot" width="100%">
+</p>
+
 
 ---
 
 ## Appointment Management
 
-[Appointment Management Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/appt.png" alt="Appointment Management Screenshot" width="100%">
+</p>
+
 
 ---
 
 ## Service Request Module
 
-[Service Request Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/req.png" alt="Request Module Screenshot" width="100%">
+</p>
 
 ---
 
 ## Customer Management
 
-[Customer Management Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/cust-man.png" alt="Customer Management Screenshot" width="100%">
+</p>
 
 ---
 
-## Vehicle Management
-
-[Vehicle Management Screenshot]
-
----
 
 ## Service Tracking
 
-[Service Tracking Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/serv-track.png" alt="Service Tracking Screenshot" width="100%">
+</p>
 
 ---
 
 ## Reports Dashboard
 
-[Reports Dashboard Screenshot]
+<p align="center">
+  <img src="CAPSTONE - SYSTEM/assets/img/rep.png" alt="Reports Dashboard Screenshot" width="100%">
+</p>
 
 ---
 
