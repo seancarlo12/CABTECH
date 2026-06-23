@@ -205,17 +205,6 @@ Provides operational insights and reporting capabilities.
 
 The system utilizes a relational database architecture consisting of the following major entities:
 
-- Accounts
-- Users
-- Customers
-- Vehicles
-- Services
-- Items
-- Service Requests
-- Service Records
-- Shop Calendar
-- Activity Logs
-
 <p align="center">
   <img src="CAPSTONE - SYSTEM/assets/img/erd.png" alt="ERD Screenshot" width="100%">
 </p>
