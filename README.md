@@ -235,47 +235,6 @@ Implemented security measures include:
 
 ---
 
-# 👨‍💻 My Contributions
-
-As the primary developer of this project, I was responsible for:
-
-### System Analysis
-- Requirements gathering
-- Process analysis
-- Workflow planning
-
-### Database Design
-- Database schema design
-- Table relationships
-- Data normalization
-
-### Frontend Development
-- Dashboard interfaces
-- Forms and user workflows
-- Responsive layouts
-
-### Backend Development
-- Business logic implementation
-- Service request processing
-- Appointment management
-- Service tracking modules
-
-### Integration
-- Email notification system
-- AJAX-powered functionality
-- Dynamic content loading
-
-### Testing & Debugging
-- Functional testing
-- Bug fixing
-- Performance improvements
-
-### Version Control
-- Git repository management
-- Source code maintenance
-
----
-
 # 📸 Project Screenshots
 
 ## Login Page
