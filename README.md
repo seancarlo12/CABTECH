@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="screenshots/banner.png" alt="CabTech Banner" width="100%">
+  <img src="CAPSTONE - SYSTEM/assets/img/primary_logo.png" alt="CabTech Banner" width="100%">
 </p>
 
 <p align="center">
